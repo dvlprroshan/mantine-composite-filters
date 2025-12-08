@@ -19,6 +19,7 @@ const git = SimpleGit();
 
 const versionIncrement: VersionIncrement = argv._[0] || 'patch';
 const versionStage: VersionStage | undefined = argv.stage;
+const otp: string | undefined = argv.otp;
 
 async function release() {
   await run(git.pull(), {
@@ -82,8 +83,9 @@ async function release() {
 
   const revertVersion = await updateVersion(nextVersion);
 
+  const otpFlag = otp ? `--otp=${otp}` : '';
   await run(
-    $`cd ./package && npm publish --access public --tag ${versionStage ? 'next' : 'latest'}`,
+    $`cd ./package && npm publish --access public --tag ${versionStage ? 'next' : 'latest'} ${otpFlag}`,
     {
       info: 'Publishing the package to npm',
       success: 'The package has been published to npm',
