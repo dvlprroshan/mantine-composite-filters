@@ -1,39 +1,84 @@
-# Mantine Extension Template
+# mantine-composite-filters
 
-This is a template repository for creating Mantine extensions. It includes all necessary configuration files and scripts to get you started.
+A powerful composite filters component for Mantine that allows users to build complex filter queries through an intuitive interface. It supports multiple filter types, operators, presets, history tracking, and extensive customization options.
 
-## Get started
+[![npm version](https://img.shields.io/npm/v/mantine-composite-filters.svg)](https://www.npmjs.com/package/mantine-composite-filters)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-1. Click "Use this template" button at the top of the page to create a new repository based on this template.
-2. Clone the repository to your local machine and install dependencies (`yarn`)
-3. Run `nvm use` to switch to the correct node version
-4. Come up with a name for your extension and replace all occurrences of `mantine-extension-template` with your extension name
-5. Change `repository` field in [package/package.json](https://github.com/mantinedev/extension-template/blob/master/package/package.json) to point to your repository
-6. Run `npm run docgen` to generate files required for documentation
-7. To verify that everything works correctly, run `npm run build` and `npm test` to build and test your initial setup
-8. All good! Start developing your extension.
+## Documentation
 
-## Local development
+[View full documentation](https://dvlprroshan.github.io/mantine-composite-filters/)
 
-To develop your extension locally, run the following commands:
+## Installation
 
-- Run `npm run storybook` to start the storybook
-- Run `npm run dev` to start the documentation
-- To regenerate props documentation, run `npm run docgen`
+```bash
+npm install mantine-composite-filters
+# or
+yarn add mantine-composite-filters
+```
 
-## Publishing package
+## Peer Dependencies
 
-1. Login with your npm account by running `npm login`, if you have 2FA enabled, [generate automation token](https://docs.npmjs.com/creating-and-viewing-access-tokens) and add it to your `~/.npmrc` file
-2. Make sure that your package name is unique and does not exist on npm yet
-3. Run `npm run release:patch`, `npm run release:minor` or `npm run release:major` to publish new version of your package
+```bash
+npm install @mantine/core @mantine/hooks @mantine/dates @mantine/notifications @tabler/icons-react dayjs
+```
 
-## Publish documentation
+## Usage
 
-By default, the documentation is deployed to GitHub Pages. The script to deploy documentation runs automatically when the package is published. In order for
-this script to work correctly, you need to make sure that `repository` field in [package/package.json](https://github.com/mantinedev/extension-template/blob/master/package/package.json) points to your repository.
+```tsx
+import { MultiFiltersInput } from 'mantine-composite-filters';
+import 'mantine-composite-filters/styles.css';
 
-To publish documentation manually, run `npm run docs:deploy`.
+const filterFields = [
+  { key: 'name', label: 'Name', type: 'text' },
+  { key: 'status', label: 'Status', type: 'select', options: ['Active', 'Inactive'] },
+  { key: 'createdAt', label: 'Created At', type: 'date' },
+  { key: 'amount', label: 'Amount', type: 'number' },
+];
 
-## README file of your extension
+function App() {
+  const [filters, setFilters] = useState([]);
 
-`README.md` file at the root repository directory (file that you are currently reading) is copied to to `package/README.md` during the build process to avoid duplication. To add content to the README file of your extension, remove extension template documentation from this file and add your own content.
+  return (
+    <MultiFiltersInput
+      fields={filterFields}
+      value={filters}
+      onChange={setFilters}
+    />
+  );
+}
+```
+
+## Features
+
+- **Multiple Filter Types**: Text, number, select, multi-select, date, date range, and boolean filters
+- **Rich Operators**: Comprehensive operators for each filter type (equals, contains, greater than, etc.)
+- **Filter Presets**: Save and load filter configurations
+- **History Tracking**: Navigate through filter history with undo/redo
+- **Keyboard Shortcuts**: Power user keyboard navigation
+- **Overflow Handling**: Multiple display modes for handling many active filters
+- **Fully Customizable**: Extensive styling and behavior customization options
+- **TypeScript Support**: Full TypeScript definitions included
+
+## Local Development
+
+```bash
+# Install dependencies
+yarn
+
+# Start development server
+npm run dev
+
+# Run storybook
+npm run storybook
+
+# Build package
+npm run build
+
+# Run tests
+npm test
+```
+
+## License
+
+MIT
