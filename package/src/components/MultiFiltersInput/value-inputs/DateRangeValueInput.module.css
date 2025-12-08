@@ -1,0 +1,7 @@
+.container {
+  flex-shrink: 0;
+  height: calc(var(--mantine-spacing-md) * 1.5);
+  display: flex;
+  align-items: center;
+}
+

@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  margin-top: var(--mantine-spacing-sm);
+  margin-left: var(--mantine-spacing-xs);
+}
+
+.refreshButton {
+  padding: calc(var(--mantine-spacing-xs) + 2px);
+  border-radius: var(--mantine-radius-md);
+  background: linear-gradient(to bottom right, var(--mantine-color-primary-filled), var(--mantine-color-primary-filled));
+  color: var(--mantine-color-primary-filled);
+  transition: all var(--mantine-transition-duration);
+  outline: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.refreshButton:hover {
+  color: var(--mantine-color-primary-filled);
+}
+
+.refreshButton:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.text {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-primary-filled);
+}
+

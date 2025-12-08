@@ -1,0 +1,285 @@
+import { InstallScript } from './components/InstallScript/InstallScript';
+import * as demos from './demos';
+
+## Installation
+
+<InstallScript packages="mantine-composite-filters" />
+
+## Overview
+
+`MultiFiltersInput` is a powerful composite filters component for Mantine that allows users to build complex filter queries through an intuitive interface. It supports multiple filter types, operators, presets, history tracking, and extensive customization options.
+
+## Basic Usage
+
+<Demo data={demos.usage} />
+
+The component requires three essential props:
+- `filters`: Array of filter definitions that specify available filter fields
+- `value`: Array of active filters (controlled component)
+- `onChange`: Callback function that receives updated filters array
+
+## Configurator
+
+<Demo data={demos.configurator} />
+
+Use the configurator above to experiment with different props and see how they affect the component behavior.
+
+## Filter Types
+
+The component supports seven different filter types, each optimized for specific use cases:
+
+<Demo data={demos.allFilterTypes} />
+
+### Supported Filter Types
+
+1. **Text** - For string matching with operators like `contains`, `starts_with`, `ends_with`, `=`
+2. **Email** - Validates email format with standard text operators
+3. **Number** - Numeric comparisons with operators: `=`, `!=`, `>`, `<`, `>=`, `<=`
+4. **Select** - Single selection from predefined options
+5. **Multi Select** - Multiple selections from predefined options
+6. **Date** - Single date selection with date picker
+7. **Date Range** - Date range selection with start and end dates
+
+### Filter Operators
+
+Operators are automatically assigned based on filter type, but you can customize them:
+
+- **Equality**: `=`, `!=`
+- **Comparison**: `>`, `<`, `>=`, `<=`
+- **Text Matching**: `contains`, `starts_with`, `ends_with`
+- **Range**: `between` (for date ranges and numbers)
+
+## Maximum Filters
+
+Limit the number of active filters to prevent overly complex queries:
+
+<Demo data={demos.withMaxFilters} />
+
+When the maximum is reached, the input is disabled and a message is displayed. This is useful for performance optimization or UX constraints.
+
+## Overflow Modes
+
+Control how filters are displayed when they exceed the container width:
+
+<Demo data={demos.overflowModes} />
+
+- **Scroll Mode** (default): Filters scroll horizontally, keeping the input always visible
+- **Wrap Mode**: Filters wrap to multiple lines, useful for wider containers
+
+## Presets and History
+
+Save and load filter configurations for quick access:
+
+<Demo data={demos.withPresets} />
+
+### Features
+
+- **Presets**: Save named filter configurations that can be loaded later
+- **Favorites**: Mark frequently used presets as favorites
+- **History**: Automatically track recent filter combinations
+- **Local Storage**: All data persists in browser's local storage
+
+Access these features through the menu button (⋮) in the component's right section.
+
+## Custom Styling
+
+Customize the component appearance using `styles` and `classNames` props:
+
+<Demo data={demos.customStyling} />
+
+The `styles` prop accepts either an object or a function that receives the theme:
+
+```tsx
+// Object syntax
+styles={{
+  container: { border: '2px solid blue' },
+  input: { fontSize: '16px' },
+}}
+
+// Function syntax (theme-aware)
+styles={(theme) => ({
+  container: { 
+    border: `2px solid ${theme.colors.blue[6]}` 
+  },
+})}
+```
+
+## Custom Filter Pills
+
+Override the default filter pill rendering with your own component:
+
+<Demo data={demos.customPills} />
+
+Use the `renderPill` prop to create custom pill components that match your design system:
+
+```tsx
+renderPill={(filter, onRemove) => (
+  <YourCustomPill 
+    filter={filter} 
+    onRemove={onRemove} 
+  />
+)}
+```
+
+## Keyboard Shortcuts
+
+The component includes several keyboard shortcuts for improved productivity:
+
+<Demo data={demos.keyboardShortcuts} />
+
+- `⌘/Ctrl + /` - Focus the filter input
+- `⌘/Ctrl + ⌫` - Clear all filters
+- `Enter` - Submit filter value
+- `Escape` - Cancel current input
+- `Backspace` - Remove last filter (when input is empty)
+
+## Real-World Example
+
+Here's a complete example showing how to use the component in a user management dashboard:
+
+<Demo data={demos.realWorldExample} />
+
+This example demonstrates:
+- Multiple filter types working together
+- Custom storage key prefix for isolation
+- Integration with data tables
+- Real-world filter combinations
+
+## Use Cases
+
+### Data Tables and Lists
+
+Perfect for filtering large datasets in tables, lists, or grids. Users can build complex queries without writing SQL or learning query syntax.
+
+### Search Interfaces
+
+Combine with search functionality to provide advanced filtering options. Users can narrow down results using multiple criteria simultaneously.
+
+### Analytics Dashboards
+
+Allow users to filter analytics data by multiple dimensions - date ranges, categories, statuses, and more.
+
+### Admin Panels
+
+Ideal for admin interfaces where users need to filter records by various attributes like status, role, creation date, etc.
+
+### E-commerce
+
+Filter products by price range, categories, tags, availability, and other attributes.
+
+## Advanced Features
+
+### Editing Filters
+
+Users can click on any part of an active filter (field, operator, or value) to edit it:
+- Click the field name to change the filter field
+- Click the operator to change the comparison operator
+- Click the value to modify the filter value
+
+### Filter Validation
+
+The component validates inputs based on filter type:
+- Email fields validate email format
+- Number fields only accept numeric input
+- Date fields use date pickers
+- Select fields restrict to available options
+
+### Local Storage Integration
+
+All user preferences are automatically saved:
+- Filter presets and favorites
+- Filter history
+- Compact mode preference
+- Filter count display preference
+
+### Custom Actions
+
+Add custom actions to the filter menu using the `customActions` prop:
+
+```tsx
+customActions={[
+  {
+    id: 'export',
+    label: 'Export Filters',
+    icon: <IconDownload />,
+    onClick: () => exportFilters(activeFilters),
+  },
+]}
+```
+
+## API Reference
+
+### MultiFiltersInputProps
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `filters` | `FilterDefinition[]` | required | Array of available filter definitions |
+| `value` | `ActiveFilter[]` | required | Current active filters (controlled) |
+| `onChange` | `(filters: ActiveFilter[]) => void` | required | Callback when filters change |
+| `placeholder` | `string` | `"Filter by..."` | Input placeholder text |
+| `maxFilters` | `number` | `undefined` | Maximum number of filters allowed |
+| `overflowMode` | `"scroll" \| "wrap"` | `"scroll"` | How to handle filter overflow |
+| `disablePresets` | `boolean` | `false` | Disable presets feature |
+| `disableHistory` | `boolean` | `false` | Disable history tracking |
+| `storageKeyPrefix` | `string` | `"filters"` | Prefix for local storage keys |
+| `renderPill` | `(filter, onRemove) => ReactNode` | `undefined` | Custom pill renderer |
+| `customActions` | `FilterAction[]` | `[]` | Custom menu actions |
+| `styles` | `Styles \| (theme) => Styles` | `{}` | Custom styles |
+| `classNames` | `ClassNames` | `{}` | Custom class names |
+| `operatorPlaceholder` | `string` | `"Select operator..."` | Operator step placeholder |
+| `valuePlaceholder` | `string` | `"Enter value..."` | Value step placeholder |
+| `searchPlaceholder` | `string` | `"Search options..."` | Options search placeholder |
+
+### FilterDefinition
+
+```tsx
+interface FilterDefinition {
+  key: string;                    // Unique identifier
+  label: string;                  // Display label
+  type: FilterType;               // Filter type
+  options?: FilterOption[];       // Options for select/multi_select
+  placeholder?: string;           // Custom placeholder
+  operators?: FilterOperator[];   // Custom operators
+  defaultOperator?: FilterOperator; // Default operator
+  icon?: React.ReactNode;         // Optional icon
+}
+```
+
+### ActiveFilter
+
+```tsx
+interface ActiveFilter {
+  id: string;                      // Unique filter ID
+  key: string;                     // Filter definition key
+  label: string;                   // Display label
+  type: FilterType;                // Filter type
+  operator: FilterOperator;         // Selected operator
+  value: string | string[] | [Date | null, Date | null]; // Filter value
+  displayValue: string;            // Formatted display value
+  icon?: React.ReactNode;          // Optional icon
+}
+```
+
+## Best Practices
+
+1. **Filter Definitions**: Keep filter definitions organized and well-labeled for better UX
+2. **Max Filters**: Set reasonable limits to prevent performance issues
+3. **Presets**: Encourage users to save common filter combinations as presets
+4. **Validation**: Always validate filter values on the server side
+5. **Performance**: Debounce filter changes when applying to large datasets
+6. **Accessibility**: Ensure keyboard navigation works with your implementation
+7. **Mobile**: Consider using wrap mode on smaller screens
+
+## TypeScript Support
+
+The component is fully typed with TypeScript. Import types as needed:
+
+```tsx
+import type { 
+  MultiFiltersInputProps,
+  FilterDefinition,
+  ActiveFilter,
+  FilterOperator,
+  FilterType
+} from 'mantine-composite-filters';
+```

@@ -1,0 +1,118 @@
+.options {
+  padding: calc(var(--mantine-spacing-xs) / 2);
+  border-radius: var(--mantine-radius-md);
+}
+
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
+}
+
+.emptyIcon {
+  color: var(--mantine-color-gray-5);
+}
+
+.emptyText {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 400;
+  color: var(--mantine-color-gray-6);
+}
+
+.option {
+  border-radius: var(--mantine-radius-sm);
+  transition: all 150ms;
+  padding: calc(var(--mantine-spacing-xs) / 2) var(--mantine-spacing-sm);
+  border: none;
+  background: transparent;
+}
+
+.option:hover {
+  background-color: var(--mantine-color-gray-1);
+}
+
+.option[data-combobox-selected] {
+  background-color: var(--mantine-color-primary-1);
+  color: var(--mantine-color-primary-7);
+}
+
+.optionSelected {
+  background-color: var(--mantine-color-primary-1);
+  color: var(--mantine-color-primary-7);
+}
+
+.optionContent {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+}
+
+.checkbox {
+  width: calc(var(--mantine-spacing-md) - 2px);
+  height: calc(var(--mantine-spacing-md) - 2px);
+  border-radius: var(--mantine-radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--mantine-transition-duration);
+  border: 1px solid var(--mantine-color-gray-4);
+  background-color: var(--mantine-color-white);
+  color: var(--mantine-color-white);
+  flex-shrink: 0;
+}
+
+.checkboxSelected {
+  background-color: var(--mantine-color-primary-6);
+  border-color: var(--mantine-color-primary-6);
+}
+
+.optionLabel {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 400;
+  color: var(--mantine-color-gray-9);
+}
+
+.footer {
+  padding: var(--mantine-spacing-sm);
+  margin-top: calc(var(--mantine-spacing-xs) / 2);
+  border-top: 1px solid var(--mantine-color-gray-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-sm);
+}
+
+.footerText {
+  font-size: var(--mantine-font-size-xs);
+  font-weight: 400;
+  color: var(--mantine-color-gray-6);
+}
+
+.applyButton {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--mantine-spacing-xs) / 2);
+  padding: calc(var(--mantine-spacing-xs) / 2) var(--mantine-spacing-sm);
+  color: var(--mantine-color-white);
+  font-size: var(--mantine-font-size-xs);
+  font-weight: 500;
+  border-radius: var(--mantine-radius-sm);
+  transition: all var(--mantine-transition-duration);
+  outline: none;
+  border: none;
+  background-color: var(--mantine-color-primary-6);
+  cursor: pointer;
+}
+
+.applyButton:hover {
+  background-color: var(--mantine-color-primary-7);
+}
+
+.spaceY {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--mantine-spacing-xs) / 2);
+}
+

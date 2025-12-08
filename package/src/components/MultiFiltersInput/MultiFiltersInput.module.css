@@ -1,0 +1,108 @@
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  padding-left: var(--mantine-spacing-sm);
+  padding-right: var(--mantine-spacing-sm);
+  /* padding: calc(var(--mantine-spacing-xs) / 2) var(--mantine-spacing-sm); */
+  border-radius: var(--mantine-radius-md);
+  cursor: text;
+  transition: all var(--mantine-transition-duration);
+  border: 1px solid var(--mantine-color-gray-3);
+  background-color: var(--mantine-color-gray-0);
+  /* min-height: calc(var(--mantine-spacing-xl) * 2); */
+}
+
+.container:hover {
+  border-color: var(--mantine-color-gray-4);
+}
+
+.container:focus-within {
+  border-color: var(--mantine-color-primary-6);
+  box-shadow: 0 0 0 1px var(--mantine-color-primary-1);
+}
+
+.pillsContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  /* padding: calc(var(--mantine-spacing-xs) / 2) 0; */
+}
+
+.pillsContainerScroll {
+  flex-wrap: nowrap;
+  padding-right: calc(var(--mantine-spacing-xl) * 2);
+  padding-top: calc(var(--mantine-spacing-xs) / 2.5);
+  overflow-x: auto;
+  display: flex;
+  /* align-items: center; */
+  min-height: calc(var(--mantine-spacing-xl) * 1);
+}
+
+.pillsContainerScroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.pillsContainerScroll::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--mantine-color-primary-5-rgb), 0.2);
+  border-radius: var(--mantine-radius-sm);
+}
+
+.pillsContainerScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pillsContainerWrap {
+  flex-wrap: wrap;
+  min-height: calc(var(--mantine-spacing-xl) * 1.5);
+}
+
+.input {
+  flex: 1;
+  min-width: calc(var(--mantine-spacing-xl) * 7.5);
+  background: transparent;
+  outline: none;
+  border: 0;
+  font-size: var(--mantine-font-size-sm);
+  font-family: var(--mantine-font-family);
+  line-height: var(--mantine-line-height);
+  color: var(--mantine-color-text);
+  padding: 0;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.input::placeholder {
+  color: var(--mantine-color-dimmed);
+  opacity: 1;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  flex-shrink: 0;
+  padding-left: var(--mantine-spacing-xs);
+}
+
+.dropdown {
+  border: 1px solid var(--mantine-color-gray-3);
+  border-radius: var(--mantine-radius-md);
+  overflow: hidden;
+  min-width: 200px;
+  max-width: 400px;
+  background-color: var(--mantine-color-white);
+  box-shadow: var(--mantine-shadow-sm);
+}
+

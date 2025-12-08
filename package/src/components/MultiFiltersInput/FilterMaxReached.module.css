@@ -1,0 +1,7 @@
+.text {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-yellow-5);
+  margin-top: var(--mantine-spacing-sm);
+  margin-left: var(--mantine-spacing-xs);
+}
+

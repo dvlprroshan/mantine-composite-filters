@@ -1,0 +1,66 @@
+.options {
+  padding: calc(var(--mantine-spacing-xs) / 2);
+  border-radius: var(--mantine-radius-md);
+}
+
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+  padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
+}
+
+.emptyIcon {
+  color: var(--mantine-color-gray-5);
+}
+
+.emptyText {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 400;
+  color: var(--mantine-color-gray-6);
+}
+
+.option {
+  border-radius: var(--mantine-radius-sm);
+  transition: all 150ms;
+  padding: calc(var(--mantine-spacing-xs) / 2) var(--mantine-spacing-sm);
+  border: none;
+  background: transparent;
+}
+
+.option:hover {
+  background-color: var(--mantine-color-gray-1);
+}
+
+.option[data-combobox-selected] {
+  background-color: var(--mantine-color-primary-1);
+  color: var(--mantine-color-primary-7);
+}
+
+.optionContent {
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mantine-color-gray-6);
+  flex-shrink: 0;
+}
+
+.fieldLabel {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 400;
+  color: var(--mantine-color-gray-9);
+}
+
+.spaceY {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--mantine-spacing-xs) / 2);
+}
+
