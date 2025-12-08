@@ -4,7 +4,7 @@ import '@mantine/code-highlight/styles.css';
 import '@mantinex/mantine-logo/styles.css';
 import '@mantinex/mantine-header/styles.css';
 import '@mantinex/demo/styles.css';
-import 'mantine-composite-filters/styles.css';
+import '../../package/dist/styles.css';
 
 import React from 'react';
 import { AppProps } from 'next/app';
