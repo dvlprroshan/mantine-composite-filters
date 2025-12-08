@@ -1,6 +1,6 @@
 {
   "name": "mantine-composite-filters",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A powerful composite filters component for Mantine",
   "homepage": "https://github.com/dvlprroshan/mantine-composite-filters#readme",
   "packageManager": "yarn@4.0.1",
