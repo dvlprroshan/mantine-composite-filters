@@ -2,7 +2,7 @@
   "name": "mantine-composite-filters",
   "version": "0.1.0",
   "description": "A powerful composite filters component for Mantine",
-  "homepage": "https://github.com/mantinedev/mantine-composite-filters#readme",
+  "homepage": "https://github.com/dvlprroshan/mantine-composite-filters#readme",
   "packageManager": "yarn@4.0.1",
   "license": "MIT",
   "author": "Vitaly Rtishchev <rtivital@gmail.com>",
@@ -30,7 +30,7 @@
     "./styles.css": "./dist/styles.css",
     "./styles.layer.css": "./dist/styles.layer.css"
   },
-  "repository": "https://github.com/mantinedev/extension-template.git",
+  "repository": "https://github.com/dvlprroshan/mantine-composite-filters.git",
   "peerDependencies": {
     "@mantine/core": ">=7.0.0",
     "@mantine/dates": ">=7.0.0",
@@ -40,5 +40,5 @@
     "react": "^18.x || ^19.x",
     "react-dom": "^18.x || ^19.x"
   },
-  "bugs": "https://github.com/rtivital/extension-template/issues"
+  "bugs": "https://github.com/dvlprroshan/mantine-composite-filters/issues"
 }
