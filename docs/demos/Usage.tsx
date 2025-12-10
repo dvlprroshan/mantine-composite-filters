@@ -1,57 +1,57 @@
 import React, { useState } from 'react';
 import { MultiFiltersInput } from 'mantine-composite-filters';
+import { Card, Text, Badge, Group, Stack, Code } from '@mantine/core';
 import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
 
-const sampleFilters: FilterDefinition[] = [
+// Define your filter schema - this is what fields users can filter by
+const employeeFilters: FilterDefinition[] = [
   {
     key: 'name',
-    label: 'Name',
+    label: 'Employee Name',
     type: 'text',
-    placeholder: 'Enter name...',
-    operators: ['contains', 'starts_with', 'ends_with', '='],
+    placeholder: 'Search by name...',
+    operators: ['contains', 'starts_with', '='],
   },
   {
     key: 'email',
-    label: 'Email',
+    label: 'Work Email',
     type: 'email',
-    placeholder: 'Enter email...',
+    placeholder: 'name@company.com',
   },
   {
-    key: 'age',
-    label: 'Age',
-    type: 'number',
-    placeholder: 'Enter age...',
-    operators: ['=', '!=', '>', '<', '>=', '<='],
-  },
-  {
-    key: 'status',
-    label: 'Status',
+    key: 'department',
+    label: 'Department',
     type: 'select',
     options: [
-      { value: 'active', label: 'Active' },
-      { value: 'inactive', label: 'Inactive' },
-      { value: 'pending', label: 'Pending' },
+      { value: 'engineering', label: '💻 Engineering' },
+      { value: 'design', label: '🎨 Design' },
+      { value: 'marketing', label: '📢 Marketing' },
+      { value: 'sales', label: '💼 Sales' },
+      { value: 'hr', label: '👥 Human Resources' },
     ],
   },
   {
-    key: 'tags',
-    label: 'Tags',
+    key: 'skills',
+    label: 'Skills',
     type: 'multi_select',
     options: [
-      { value: 'urgent', label: 'Urgent' },
-      { value: 'important', label: 'Important' },
-      { value: 'normal', label: 'Normal' },
-      { value: 'low', label: 'Low Priority' },
+      { value: 'react', label: 'React' },
+      { value: 'typescript', label: 'TypeScript' },
+      { value: 'python', label: 'Python' },
+      { value: 'figma', label: 'Figma' },
+      { value: 'sql', label: 'SQL' },
     ],
   },
   {
-    key: 'created_at',
-    label: 'Created Date',
-    type: 'date',
+    key: 'salary',
+    label: 'Salary ($)',
+    type: 'number',
+    placeholder: 'Enter amount...',
+    operators: ['=', '>', '<', '>=', '<='],
   },
   {
-    key: 'date_range',
-    label: 'Date Range',
+    key: 'hire_date',
+    label: 'Hire Date',
     type: 'date_range',
   },
 ];
@@ -60,22 +60,34 @@ export function Usage() {
   const [filters, setFilters] = useState<ActiveFilter[]>([]);
 
   return (
-    <div style={{ padding: 40, maxWidth: 800 }}>
+    <Stack gap="lg" p="xl" maw={900}>
+      {/* The filter component */}
       <MultiFiltersInput
-        filters={sampleFilters}
+        filters={employeeFilters}
         value={filters}
         onChange={setFilters}
-        placeholder="Filter by..."
+        placeholder="🔍 Filter employees by name, department, skills..."
       />
+
+      {/* Show active filters as output */}
       {filters.length > 0 && (
-        <div style={{ marginTop: 20, padding: 16, background: '#f5f5f5', borderRadius: 8 }}>
-          <strong>Active Filters ({filters.length}):</strong>
-          <pre style={{ marginTop: 8, fontSize: 12, maxHeight: 300, overflow: 'auto' }}>
+        <Card withBorder padding="md" radius="md" bg="gray.0">
+          <Group mb="xs">
+            <Text fw={600} size="sm">Active Filters</Text>
+            <Badge variant="light">{filters.length}</Badge>
+          </Group>
+          <Code block style={{ maxHeight: 200, overflow: 'auto' }}>
             {JSON.stringify(filters, null, 2)}
-          </pre>
-        </div>
+          </Code>
+        </Card>
       )}
-    </div>
+
+      {filters.length === 0 && (
+        <Text c="dimmed" size="sm" ta="center">
+          Click on the input and start typing to add filters
+        </Text>
+      )}
+    </Stack>
   );
 }
 

@@ -17,7 +17,7 @@
 }
 
 .container:focus-within {
-  border-color: var(--mantine-color-gray-6);
+  border-color: var(--mantine-color-blue-6);
   box-shadow: 0 0 0 1px var(--mantine-color-gray-1);
 }
 

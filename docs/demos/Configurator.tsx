@@ -1,115 +1,155 @@
 import React, { useState } from 'react';
 import { MultiFiltersInput } from 'mantine-composite-filters';
-import { Stack, TextInput, NumberInput, Switch, Select, Paper, Group, Box } from '@mantine/core';
+import { Stack, TextInput, NumberInput, Switch, Select, Paper, Group, Box, Text, Divider, Badge, ThemeIcon } from '@mantine/core';
+import { IconSettings, IconAdjustments } from '@tabler/icons-react';
 import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
 
-const sampleFilters: FilterDefinition[] = [
+const projectFilters: FilterDefinition[] = [
   {
-    key: 'name',
-    label: 'Name',
+    key: 'project_name',
+    label: 'Project Name',
     type: 'text',
-    placeholder: 'Enter name...',
-    operators: ['contains', 'starts_with', 'ends_with', '='],
+    placeholder: 'Search projects...',
+    operators: ['contains', 'starts_with', '='],
   },
   {
-    key: 'email',
-    label: 'Email',
+    key: 'owner_email',
+    label: 'Owner Email',
     type: 'email',
-    placeholder: 'Enter email...',
+    placeholder: 'owner@company.com',
   },
   {
-    key: 'age',
-    label: 'Age',
+    key: 'budget',
+    label: 'Budget ($)',
     type: 'number',
-    placeholder: 'Enter age...',
-    operators: ['=', '!=', '>', '<', '>=', '<='],
+    placeholder: 'Enter budget...',
+    operators: ['=', '>', '<', '>=', '<='],
   },
   {
     key: 'status',
-    label: 'Status',
+    label: 'Project Status',
     type: 'select',
     options: [
-      { value: 'active', label: 'Active' },
-      { value: 'inactive', label: 'Inactive' },
-      { value: 'pending', label: 'Pending' },
+      { value: 'planning', label: '📋 Planning' },
+      { value: 'active', label: '🚀 Active' },
+      { value: 'on_hold', label: '⏸️ On Hold' },
+      { value: 'completed', label: '✅ Completed' },
     ],
   },
   {
-    key: 'tags',
-    label: 'Tags',
+    key: 'team_members',
+    label: 'Team Members',
     type: 'multi_select',
     options: [
-      { value: 'urgent', label: 'Urgent' },
-      { value: 'important', label: 'Important' },
-      { value: 'normal', label: 'Normal' },
-      { value: 'low', label: 'Low Priority' },
+      { value: 'alice', label: 'Alice Chen' },
+      { value: 'bob', label: 'Bob Smith' },
+      { value: 'carol', label: 'Carol Davis' },
+      { value: 'dan', label: 'Dan Wilson' },
     ],
   },
   {
-    key: 'created_at',
-    label: 'Created Date',
-    type: 'date',
+    key: 'deadline',
+    label: 'Deadline',
+    type: 'date_range',
   },
 ];
 
 export function Configurator() {
   const [filters, setFilters] = useState<ActiveFilter[]>([]);
-  const [placeholder, setPlaceholder] = useState('Filter by...');
+  const [placeholder, setPlaceholder] = useState('Filter projects...');
   const [maxFilters, setMaxFilters] = useState<number | undefined>(undefined);
   const [disablePresets, setDisablePresets] = useState(false);
   const [disableHistory, setDisableHistory] = useState(false);
   const [overflowMode, setOverflowMode] = useState<'scroll' | 'wrap'>('scroll');
 
   return (
-    <Group align="flex-start" gap="xl" wrap="nowrap" style={{ padding: 20 }}>
-      <Box style={{ flex: 1, minWidth: 0 }}>
-        <MultiFiltersInput
-          filters={sampleFilters}
-          value={filters}
-          onChange={setFilters}
-          placeholder={placeholder}
-          maxFilters={maxFilters}
-          disablePresets={disablePresets}
-          disableHistory={disableHistory}
-          overflowMode={overflowMode}
-        />
-      </Box>
-      <Paper p="md" withBorder style={{ width: 280, flexShrink: 0 }}>
-        <Stack gap="md">
-          <TextInput
-            label="Placeholder"
-            value={placeholder}
-            onChange={(e) => setPlaceholder(e.currentTarget.value)}
+    <Box p="md">
+      <Group align="flex-start" gap="xl" wrap="nowrap">
+        {/* Main Filter Area */}
+        <Stack style={{ flex: 1, minWidth: 0 }} gap="md">
+          <MultiFiltersInput
+            filters={projectFilters}
+            value={filters}
+            onChange={setFilters}
+            placeholder={placeholder}
+            maxFilters={maxFilters}
+            disablePresets={disablePresets}
+            disableHistory={disableHistory}
+            overflowMode={overflowMode}
           />
-          <NumberInput
-            label="Max Filters"
-            description="Leave empty for unlimited"
-            value={maxFilters}
-            onChange={(value) => setMaxFilters(value === '' ? undefined : Number(value))}
-            min={1}
-            allowNegative={false}
-          />
-          <Select
-            label="Overflow Mode"
-            value={overflowMode}
-            onChange={(value) => setOverflowMode(value as 'scroll' | 'wrap')}
-            data={[
-              { value: 'scroll', label: 'Scroll' },
-              { value: 'wrap', label: 'Wrap' },
-            ]}
-          />
-          <Switch
-            label="Disable Presets"
-            checked={disablePresets}
-            onChange={(e) => setDisablePresets(e.currentTarget.checked)}
-          />
-          <Switch
-            label="Disable History"
-            checked={disableHistory}
-            onChange={(e) => setDisableHistory(e.currentTarget.checked)}
-          />
+          
+          {filters.length > 0 && (
+            <Group gap="xs">
+              <Text size="xs" c="dimmed">Active:</Text>
+              {filters.map((f) => (
+                <Badge key={f.id} variant="light" size="sm">
+                  {f.label}: {f.displayValue}
+                </Badge>
+              ))}
+            </Group>
+          )}
         </Stack>
-      </Paper>
-    </Group>
+
+        {/* Configuration Panel */}
+        <Paper p="md" withBorder radius="md" style={{ width: 300, flexShrink: 0 }}>
+          <Group gap="xs" mb="md">
+            <ThemeIcon size="sm" variant="light" color="blue">
+              <IconAdjustments size={14} />
+            </ThemeIcon>
+            <Text fw={600} size="sm">Configuration</Text>
+          </Group>
+          
+          <Stack gap="sm">
+            <TextInput
+              label="Placeholder Text"
+              size="xs"
+              value={placeholder}
+              onChange={(e) => setPlaceholder(e.currentTarget.value)}
+            />
+            
+            <NumberInput
+              label="Max Filters"
+              description="Limit number of filters"
+              size="xs"
+              value={maxFilters}
+              onChange={(value) => setMaxFilters(value === '' ? undefined : Number(value))}
+              min={1}
+              max={10}
+              allowNegative={false}
+              placeholder="Unlimited"
+            />
+            
+            <Select
+              label="Overflow Behavior"
+              size="xs"
+              value={overflowMode}
+              onChange={(value) => setOverflowMode(value as 'scroll' | 'wrap')}
+              data={[
+                { value: 'scroll', label: '↔️ Horizontal Scroll' },
+                { value: 'wrap', label: '↩️ Wrap to New Line' },
+              ]}
+            />
+            
+            <Divider my="xs" />
+            
+            <Switch
+              label="Disable Presets"
+              description="Hide save/load presets"
+              size="xs"
+              checked={disablePresets}
+              onChange={(e) => setDisablePresets(e.currentTarget.checked)}
+            />
+            
+            <Switch
+              label="Disable History"
+              description="Don't track filter history"
+              size="xs"
+              checked={disableHistory}
+              onChange={(e) => setDisableHistory(e.currentTarget.checked)}
+            />
+          </Stack>
+        </Paper>
+      </Group>
+    </Box>
   );
 }
