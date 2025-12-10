@@ -4,9 +4,6 @@
   display: flex;
   align-items: center;
   gap: var(--mantine-spacing-xs);
-  padding-left: var(--mantine-spacing-sm);
-  padding-right: var(--mantine-spacing-sm);
-  /* padding: calc(var(--mantine-spacing-xs) / 2) var(--mantine-spacing-sm); */
   border-radius: var(--mantine-radius-md);
   cursor: text;
   transition: all var(--mantine-transition-duration);
@@ -35,7 +32,6 @@
 .pillsContainerScroll {
   flex-wrap: nowrap;
   padding-right: calc(var(--mantine-spacing-xl) * 2);
-  padding-top: calc(var(--mantine-spacing-xs) / 2.5);
   overflow-x: auto;
   display: flex;
   /* align-items: center; */

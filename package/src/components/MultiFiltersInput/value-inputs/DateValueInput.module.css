@@ -5,3 +5,9 @@
   align-items: center;
 }
 
+.placeholder {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-dimmed);
+  cursor: pointer;
+}
+

@@ -137,7 +137,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
   // Combobox
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
-    onDropdownOpen: () => combobox.updateSelectedOptionIndex("active"),
+    onDropdownOpen: () => combobox.selectFirstOption(),
   });
 
   // Computed values
@@ -170,6 +170,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     ["mod+/", () => {
       inputRef.current?.focus();
       combobox.openDropdown();
+      combobox.selectFirstOption();
     }],
     ["mod+Backspace", () => handleClearAll()],
   ]);
@@ -218,6 +219,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     // Open dropdown after state updates
     setTimeout(() => {
       combobox.openDropdown();
+      combobox.selectFirstOption();
     }, 0);
   }, [filters, combobox]);
 
@@ -260,6 +262,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     if (field.type === "select" || field.type === "multi_select") {
       setTimeout(() => {
         combobox.openDropdown();
+        combobox.selectFirstOption();
       }, 0);
     } else {
       // For text/number/email, focus the input
@@ -289,6 +292,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
           if (field.type === "select" || field.type === "multi_select") {
             setTimeout(() => {
               combobox.openDropdown();
+              combobox.selectFirstOption();
             }, 0);
           }
         } else {
@@ -299,6 +303,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
           setInputStep("operator");
           setTimeout(() => {
             combobox.openDropdown();
+            combobox.selectFirstOption();
           }, 0);
         }
       } else if (operators.length === 1) {
@@ -442,6 +447,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     // If it's a select/multi_select, open dropdown
     if (selectedField && (selectedField.type === "select" || selectedField.type === "multi_select")) {
       combobox.openDropdown();
+      combobox.selectFirstOption();
     }
   }, [editingFilterId, editingPart, activeFilters, selectedField, combobox, onChange, resetInput]);
 
@@ -732,6 +738,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             value={dateValue}
             onChange={setDateValue}
             onComplete={addFilter}
+            onCancel={resetInput}
           />
         );
       case "date_range":
@@ -740,6 +747,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             value={dateRangeValue}
             onChange={setDateRangeValue}
             onComplete={addFilter}
+            onCancel={resetInput}
           />
         );
       default:
@@ -814,6 +822,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
                 e.preventDefault();
                 if (!isInputDisabled) {
                   combobox.openDropdown();
+                  combobox.selectFirstOption();
                 }
               }
             }}
@@ -824,7 +833,8 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             <ActionIcon 
               color="gray" 
               variant="subtle" 
-              size="sm"
+              size="md"
+              pl="xs"
               className={mergedClassNames.leftIcon}
               style={resolvedStyles.leftIcon}
             >
@@ -875,11 +885,12 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
                     onChange={(e) => {
                       setInputValue(e.currentTarget.value);
                       combobox.openDropdown();
-                      combobox.updateSelectedOptionIndex();
+                      combobox.selectFirstOption();
                     }}
                     onFocus={() => {
                       setIsFocused(true);
                       combobox.openDropdown();
+                      combobox.selectFirstOption();
                       if (overflowMode === "scroll" && pillsContainerRef.current && inputRef.current) {
                         // Scroll input to center of visible area
                         const container = pillsContainerRef.current;

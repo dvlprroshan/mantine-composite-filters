@@ -8,12 +8,10 @@ import classes from "./FieldDropdown.module.css";
 
 export interface FieldDropdownProps {
   fields: FilterDefinition[];
-  totalAvailable: number;
 }
 
 export const FieldDropdown: React.FC<FieldDropdownProps> = ({
   fields,
-  totalAvailable,
 }) => {
   if (fields.length === 0) {
     return (
