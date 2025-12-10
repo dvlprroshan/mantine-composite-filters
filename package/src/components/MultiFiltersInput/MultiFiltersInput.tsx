@@ -695,8 +695,25 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
         resetInput();
         combobox.closeDropdown();
       }
-      if (e.key === "Backspace" && !inputValue && inputStep === "field" && activeFilters.length > 0) {
-        handleRemoveFilter(activeFilters[activeFilters.length - 1].id);
+      if (e.key === "Backspace" && !inputValue) {
+        // Step back through partial filter creation
+        if (inputStep === "value") {
+          // Go back to operator selection
+          e.preventDefault();
+          setSelectedOperator(null);
+          setInputStep("operator");
+          setDateValue(null);
+          setDateRangeValue([null, null]);
+          setMultiSelectValues([]);
+        } else if (inputStep === "operator") {
+          // Go back to field selection
+          e.preventDefault();
+          setSelectedField(null);
+          setInputStep("field");
+        } else if (inputStep === "field" && activeFilters.length > 0) {
+          // Remove last completed filter
+          handleRemoveFilter(activeFilters[activeFilters.length - 1].id);
+        }
       }
     },
     [inputStep, selectedField, multiSelectValues, handleValueSubmit, inputValue, activeFilters, resetInput, combobox, handleRemoveFilter]
