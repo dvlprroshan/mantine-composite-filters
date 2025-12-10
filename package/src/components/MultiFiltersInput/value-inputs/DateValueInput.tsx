@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Popover } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
+import React, { useEffect, useRef, useState } from "react";
+import { DateInput } from "@mantine/dates";
 import { formatDate, toDate } from "../../../utils";
 import classes from "./DateValueInput.module.css";
 
@@ -17,48 +16,64 @@ export const DateValueInput: React.FC<DateValueInputProps> = ({
   onComplete,
   onCancel,
 }) => {
-  const [opened, setOpened] = useState(true);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [localValue, setLocalValue] = useState<Date | null>(value);
+  const isTypingRef = useRef(false);
 
   useEffect(() => {
-    setOpened(true);
+    inputRef.current?.focus();
   }, []);
+
+  const completeSelection = (dateVal: Date) => {
+    onChange(dateVal);
+    const formatted = formatDate(dateVal);
+    onComplete(formatted, dateVal.toISOString());
+  };
 
   const handleChange = (val: Date | string | null) => {
     const dateVal = toDate(val);
+    setLocalValue(dateVal);
     onChange(dateVal);
-    if (dateVal) {
-      const formatted = formatDate(dateVal);
-      onComplete(formatted, dateVal.toISOString());
-      setOpened(false);
+    
+    // Only auto-complete if not typing (i.e., selected from calendar)
+    if (dateVal && !isTypingRef.current) {
+      completeSelection(dateVal);
     }
   };
 
-  const handleClose = () => {
-    setOpened(false);
-    if (!value) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    isTypingRef.current = true;
+    if (e.key === "Escape") {
       onCancel?.();
+    } else if (e.key === "Enter" && localValue) {
+      completeSelection(localValue);
     }
+  };
+
+  const handleBlur = () => {
+    isTypingRef.current = false;
+  };
+
+  const handleFocus = () => {
+    isTypingRef.current = false;
   };
 
   return (
     <div className={classes.container}>
-      <Popover
-        opened={opened}
-        onClose={handleClose}
-        position="bottom-start"
-        withinPortal
-        shadow="md"
-      >
-        <Popover.Target>
-          <span className={classes.placeholder}>Select date...</span>
-        </Popover.Target>
-        <Popover.Dropdown>
-          <DatePicker
-            value={value}
-            onChange={handleChange}
-          />
-        </Popover.Dropdown>
-      </Popover>
+      <DateInput
+        ref={inputRef}
+        value={localValue}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        placeholder="Select date..."
+        valueFormat="MMM D, YYYY"
+        popoverProps={{ withinPortal: true, shadow: "md" }}
+        classNames={{ input: classes.input }}
+        variant="unstyled"
+        size="xs"
+      />
     </div>
   );
 };

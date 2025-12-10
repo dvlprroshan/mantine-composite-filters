@@ -5,9 +5,17 @@
   align-items: center;
 }
 
-.placeholder {
+.input {
   font-size: var(--mantine-font-size-sm);
+  height: auto;
+  min-height: unset;
+  padding: 0;
+  border: none;
+  background: transparent;
+  min-width: 180px;
+}
+
+.input::placeholder {
   color: var(--mantine-color-dimmed);
-  cursor: pointer;
 }
 

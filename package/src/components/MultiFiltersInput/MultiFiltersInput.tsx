@@ -817,7 +817,9 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
+              // Only handle Enter/Space when target is not an input (allow typing in inputs)
+              const isInput = (e.target as HTMLElement).tagName === "INPUT";
+              if ((e.key === "Enter" || e.key === " ") && !isInput) {
                 e.preventDefault();
                 if (!isInputDisabled) {
                   combobox.openDropdown();
