@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MantineProvider } from '@mantine/core';
 import { MultiFiltersInput } from './MultiFiltersInput';
 import type { ActiveFilter, FilterDefinition } from '../../types/filter.types';
 
@@ -231,6 +232,29 @@ export function DisabledFeatures() {
         placeholder="Filter by... (presets and history disabled)"
       />
     </div>
+  );
+}
+
+export function DarkMode() {
+  const [filters, setFilters] = useState<ActiveFilter[]>([]);
+
+  return (
+    <MantineProvider defaultColorScheme="dark">
+      <div style={{ padding: 40, maxWidth: 800, background: 'var(--mantine-color-dark-7)', minHeight: '100vh' }}>
+        <MultiFiltersInput
+          filters={sampleFilters}
+          value={filters}
+          onChange={setFilters}
+          placeholder="Filter by... (dark mode)"
+        />
+        <div style={{ marginTop: 20, padding: 16, background: 'var(--mantine-color-dark-6)', borderRadius: 8 }}>
+          <strong style={{ color: 'var(--mantine-color-dark-0)' }}>Active Filters:</strong>
+          <pre style={{ marginTop: 8, fontSize: 12, color: 'var(--mantine-color-dark-1)' }}>
+            {JSON.stringify(filters, null, 2)}
+          </pre>
+        </div>
+      </div>
+    </MantineProvider>
   );
 }
 

@@ -14,7 +14,7 @@
   border-radius: var(--mantine-radius-sm);
   transition: all var(--mantine-transition-duration);
   border: none;
-  background-color: var(--mantine-color-gray-1);
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
   cursor: pointer;
   font-size: var(--mantine-font-size-sm);
   height: 24px;
@@ -22,7 +22,7 @@
 }
 
 .box:hover {
-  background-color: var(--mantine-color-gray-2);
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
 }
 
 .fieldBox {
@@ -35,7 +35,7 @@
 }
 
 .fieldBoxNonClickable:hover {
-  background-color: var(--mantine-color-gray-1);
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
 }
 
 .operatorBox {
@@ -56,13 +56,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--mantine-color-gray-6);
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
   flex-shrink: 0;
 }
 
 .label {
   font-weight: 400;
-  color: var(--mantine-color-gray-7);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
 }
 
 .labelCompact {
@@ -75,7 +75,7 @@
 
 .operator {
   font-weight: 400;
-  color: var(--mantine-color-gray-7);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
 }
 
 .operatorCompact {
@@ -88,7 +88,7 @@
 
 .value {
   font-weight: 400;
-  color: var(--mantine-color-gray-9);
+  color: light-dark(var(--mantine-color-gray-9), var(--mantine-color-dark-0));
   max-width: calc(var(--mantine-spacing-xl) * 12.5);
   overflow: hidden;
   text-overflow: ellipsis;

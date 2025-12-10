@@ -10,13 +10,13 @@
   border-radius: var(--mantine-radius-md);
   cursor: text;
   transition: all var(--mantine-transition-duration);
-  border: 1px solid var(--mantine-color-gray-3);
-  background-color: var(--mantine-color-gray-0);
+  border: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
   /* min-height: calc(var(--mantine-spacing-xl) * 2); */
 }
 
 .container:hover {
-  border-color: var(--mantine-color-gray-4);
+  border-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
 }
 
 .container:focus-within {
@@ -97,12 +97,12 @@
 }
 
 .dropdown {
-  border: 1px solid var(--mantine-color-gray-3);
+  border: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   border-radius: var(--mantine-radius-md);
   overflow: hidden;
   min-width: 200px;
   max-width: 400px;
-  background-color: var(--mantine-color-white);
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-7));
   box-shadow: var(--mantine-shadow-sm);
 }
 
