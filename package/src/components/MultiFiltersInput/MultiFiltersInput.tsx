@@ -415,15 +415,28 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             return;
           }
         } else {
+          // For text/email/number, update filter immediately with existing value
           const textValue = typeof existingFilter.value === "string" ? existingFilter.value : String(existingFilter.value || "");
-          setInputValue(textValue);
-          // For text/email/number, go to value step to allow editing
+          if (textValue) {
+            const updatedFilters = activeFilters.map((f) =>
+              f.id === editingFilterId
+                ? {
+                    ...f,
+                    operator,
+                  }
+                : f
+            );
+            onChange(updatedFilters);
+            setEditingFilterId(null);
+            setEditingPart(null);
+            resetInput();
+            return;
+          }
         }
       }
-    } else {
-      setInputValue("");
     }
     
+    setInputValue("");
     setInputStep("value");
     
     // If it's a select/multi_select, open dropdown
