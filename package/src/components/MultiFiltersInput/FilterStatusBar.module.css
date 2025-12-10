@@ -9,8 +9,8 @@
 .refreshButton {
   padding: calc(var(--mantine-spacing-xs) + 2px);
   border-radius: var(--mantine-radius-md);
-  background: linear-gradient(to bottom right, var(--mantine-color-primary-filled), var(--mantine-color-primary-filled));
-  color: var(--mantine-color-primary-filled);
+  background: linear-gradient(to bottom right, var(--mantine-color-gray-1), var(--mantine-color-gray-1));
+  color: var(--mantine-color-gray-7);
   transition: all var(--mantine-transition-duration);
   outline: none;
   border: 0;
@@ -18,7 +18,7 @@
 }
 
 .refreshButton:hover {
-  color: var(--mantine-color-primary-filled);
+  color: var(--mantine-color-gray-7);
 }
 
 .refreshButton:focus {
@@ -28,6 +28,6 @@
 
 .text {
   font-size: var(--mantine-font-size-xs);
-  color: var(--mantine-color-primary-filled);
+  color: var(--mantine-color-gray-7);
 }
 

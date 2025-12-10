@@ -33,16 +33,20 @@
   background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
 }
 
-.option[data-combobox-selected],
-.option[data-combobox-active] {
-  background-color: light-dark(var(--mantine-color-primary-1), var(--mantine-color-primary-9)) !important;
-  color: light-dark(var(--mantine-color-primary-7), var(--mantine-color-primary-3)) !important;
+
+.option[data-combobox-selected]
+{
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-8)) !important;
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-gray-2)) !important;
 }
 
-.optionSelected {
-  background-color: light-dark(var(--mantine-color-primary-1), var(--mantine-color-primary-9));
-  color: light-dark(var(--mantine-color-primary-7), var(--mantine-color-primary-3));
-}
+/* .option[data-combobox-active] */
+/* .option[data-combobox-active] {
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-3)) !important;
+
+} */
+
 
 .optionContent {
   display: flex;
@@ -51,22 +55,7 @@
 }
 
 .checkbox {
-  width: calc(var(--mantine-spacing-md) - 2px);
-  height: calc(var(--mantine-spacing-md) - 2px);
-  border-radius: var(--mantine-radius-xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--mantine-transition-duration);
-  border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-4));
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
-  color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
-  flex-shrink: 0;
-}
-
-.checkboxSelected {
-  background-color: var(--mantine-color-primary-6);
-  border-color: var(--mantine-color-primary-6);
+  pointer-events: none;
 }
 
 .optionLabel {
@@ -96,20 +85,15 @@
   align-items: center;
   gap: calc(var(--mantine-spacing-xs) / 2);
   padding: calc(var(--mantine-spacing-xs) / 2) var(--mantine-spacing-sm);
-  color: var(--mantine-color-white);
   font-size: var(--mantine-font-size-xs);
   font-weight: 500;
   border-radius: var(--mantine-radius-sm);
   transition: all var(--mantine-transition-duration);
   outline: none;
   border: none;
-  background-color: var(--mantine-color-primary-6);
   cursor: pointer;
 }
 
-.applyButton:hover {
-  background-color: var(--mantine-color-primary-7);
-}
 
 .spaceY {
   display: flex;

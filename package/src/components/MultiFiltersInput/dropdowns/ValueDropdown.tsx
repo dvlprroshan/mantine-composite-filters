@@ -1,7 +1,6 @@
 import React from "react";
-import { Combobox, ScrollArea } from "@mantine/core";
+import { Button, Checkbox, Combobox, ScrollArea } from "@mantine/core";
 import { IconCheck, IconSearch } from "@tabler/icons-react";
-import cx from "clsx";
 
 import type { FilterDefinition, FilterOption } from "../../../types/filter.types";
 import classes from "./ValueDropdown.module.css";
@@ -45,15 +44,17 @@ export const ValueDropdown: React.FC<ValueDropdownProps> = ({
                 key={option.value}
                 value={option.value}
                 active={isMultiSelect ? isSelected : false}
-                className={cx(classes.option, isSelected && classes.optionSelected)}
+                className={classes.option}
               >
                 <div className={classes.optionContent}>
                   {isMultiSelect && (
-                    <div className={cx(classes.checkbox, isSelected && classes.checkboxSelected)}>
-                      {isSelected && (
-                        <IconCheck size={12} strokeWidth={3} />
-                      )}
-                    </div>
+                    <Checkbox
+                      checked={isSelected}
+                      onChange={() => {}}
+                      tabIndex={-1}
+                      size="xs"
+                      className={classes.checkbox}
+                    />
                   )}
                   <span className={classes.optionLabel}>
                     {option.label}
@@ -69,13 +70,14 @@ export const ValueDropdown: React.FC<ValueDropdownProps> = ({
           <span className={classes.footerText}>
             {selectedValues.length} selected
           </span>
-          <button
+          <Button
+            type="button"
             onClick={onSubmit}
             className={classes.applyButton}
           >
             <IconCheck size={12} />
             Apply
-          </button>
+          </Button>
         </div>
       )}
     </Combobox.Options>

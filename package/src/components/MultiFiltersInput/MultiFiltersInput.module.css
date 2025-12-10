@@ -17,8 +17,8 @@
 }
 
 .container:focus-within {
-  border-color: var(--mantine-color-primary-6);
-  box-shadow: 0 0 0 1px var(--mantine-color-primary-1);
+  border-color: var(--mantine-color-gray-6);
+  box-shadow: 0 0 0 1px var(--mantine-color-gray-1);
 }
 
 .pillsContainer {
@@ -43,7 +43,7 @@
 }
 
 .pillsContainerScroll::-webkit-scrollbar-thumb {
-  background-color: rgba(var(--mantine-color-primary-5-rgb), 0.2);
+  background-color: rgba(var(--mantine-color-gray-5-rgb), 0.2);
   border-radius: var(--mantine-radius-sm);
 }
 

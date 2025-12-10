@@ -761,7 +761,6 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
       return (
         <FieldDropdown
           fields={filteredFields}
-          totalAvailable={availableFilters.length}
         />
       );
     }
