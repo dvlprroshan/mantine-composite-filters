@@ -3,6 +3,13 @@ export { MultiFiltersInput as default } from "./MultiFiltersInput";
 export { MultiFiltersInput } from "./MultiFiltersInput";
 export type { MultiFiltersInputExtendedProps } from "./MultiFiltersInput";
 
+// Styles API
+export { 
+  multiFiltersInputClasses,
+  staticClasses as multiFiltersInputStaticClasses,
+  type MultiFiltersInputStylesNames 
+} from "./MultiFiltersInput.classes";
+
 // Sub-components for customization
 export { FilterPill } from "./FilterPill";
 export { CurrentFieldIndicator } from "./CurrentFieldIndicator";

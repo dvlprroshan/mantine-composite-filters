@@ -5,6 +5,12 @@ import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 import { IconSearch, IconX } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "./MultiFiltersInput.module.css";
+import { 
+  staticClasses, 
+  cssModuleClasses, 
+  multiFiltersInputClasses,
+  type MultiFiltersInputStylesNames 
+} from "./MultiFiltersInput.classes";
 
 import { useFilterHistory } from "../../hooks/useFilterHistory";
 import { useFilterPresets } from "../../hooks/useFilterPresets";
@@ -50,7 +56,12 @@ export interface MultiFiltersInputExtendedProps extends MultiFiltersInputProps {
   searchPlaceholder?: string;
 }
 
-export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
+// Component type with static classes property (Mantine Styles API pattern)
+type MultiFiltersInputComponent = React.FC<MultiFiltersInputExtendedProps> & {
+  classes: Record<MultiFiltersInputStylesNames, string>;
+};
+
+const MultiFiltersInputBase: React.FC<MultiFiltersInputExtendedProps> = ({
   filters,
   value: activeFilters,
   onChange,
@@ -77,19 +88,13 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     return typeof styles === 'function' ? styles(theme) : (styles || {});
   }, [styles, theme]);
 
-  // Merge default classNames with custom classNames
-  const mergedClassNames: MultiFiltersInputClassNames = useMemo(() => {
-    return {
-      root: classNames?.root,
-      container: classNames?.container,
-      leftIcon: classNames?.leftIcon,
-      pillsContainer: classNames?.pillsContainer,
-      input: classNames?.input,
-      rightSection: classNames?.rightSection,
-      dropdown: classNames?.dropdown,
-      badge: classNames?.badge,
-      clearButton: classNames?.clearButton,
-    };
+  // Merge static classes, CSS module classes, and custom classNames
+  const getClassName = useCallback((selector: MultiFiltersInputStylesNames): string => {
+    return cx(
+      staticClasses[selector],
+      cssModuleClasses[selector],
+      classNames?.[selector]
+    );
   }, [classNames]);
   // Input state
   const [inputStep, setInputStep] = useState<InputStep>("field");
@@ -806,7 +811,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
 
   return (
     <Box 
-      className={cx(mergedClassNames.root, className)} 
+      className={cx(getClassName('root'), className)} 
       style={{ ...resolvedStyles.root, ...boxProps.style }}
       {...boxProps}
     >
@@ -844,7 +849,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
                 }
               }
             }}
-            className={cx(classes.container, mergedClassNames.container)}
+            className={getClassName('container')}
             style={resolvedStyles.container}
           >
             {/* Left Icon */}
@@ -853,7 +858,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
               variant="subtle" 
               size="md"
               pl="xs"
-              className={mergedClassNames.leftIcon}
+              className={getClassName('leftIcon')}
               style={resolvedStyles.leftIcon}
             >
               <IconSearch size={16} />
@@ -862,9 +867,8 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             <div 
               ref={pillsContainerRef}
               className={cx(
-                classes.pillsContainer,
-                overflowMode === "scroll" ? classes.pillsContainerScroll : classes.pillsContainerWrap,
-                mergedClassNames.pillsContainer
+                getClassName('pillsContainer'),
+                overflowMode === "scroll" ? classes.pillsContainerScroll : classes.pillsContainerWrap
               )}
               style={resolvedStyles.pillsContainer}
             >
@@ -939,7 +943,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
                     onKeyDown={handleKeyDown}
                     placeholder={getInputPlaceholder()}
                     disabled={isInputDisabled}
-                    className={cx(classes.input, mergedClassNames.input)}
+                    className={getClassName('input')}
                     style={resolvedStyles.input}
                   />
                 </Combobox.EventsTarget>
@@ -948,7 +952,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
 
             {/* Right Section */}
             <div 
-              className={cx(classes.rightSection, mergedClassNames.rightSection)}
+              className={getClassName('rightSection')}
               style={resolvedStyles.rightSection}
             >
               {activeFilters.length > 0 && (
@@ -957,7 +961,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
                     <Badge 
                       variant="filled" 
                       size="xs"
-                      className={mergedClassNames.badge}
+                      className={getClassName('badge')}
                       style={resolvedStyles.badge}
                     >
                       {activeFilters.length}
@@ -968,7 +972,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
                       color="red"
                       variant="light"
                       size="sm"
-                      className={mergedClassNames.clearButton}
+                      className={getClassName('clearButton')}
                       style={resolvedStyles.clearButton}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1006,7 +1010,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
 
         {showDropdown && (
           <Combobox.Dropdown 
-            className={cx(classes.dropdown, mergedClassNames.dropdown)}
+            className={getClassName('dropdown')}
             style={resolvedStyles.dropdown}
           >
             {renderDropdownContent()}
@@ -1026,6 +1030,11 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     </Box>
   );
 };
+
+// Create the component with static classes property (Mantine Styles API pattern)
+export const MultiFiltersInput = Object.assign(MultiFiltersInputBase, {
+  classes: multiFiltersInputClasses,
+}) as MultiFiltersInputComponent;
 
 export default MultiFiltersInput;
 

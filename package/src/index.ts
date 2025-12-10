@@ -14,8 +14,12 @@ export {
   DateRangeValueInput,
   FilterProvider,
   useFilterContext,
+  // Styles API
+  multiFiltersInputClasses,
+  multiFiltersInputStaticClasses,
 } from "./components/MultiFiltersInput";
 export type { FilterOverflowMode, MultiFiltersInputExtendedProps } from "./components/MultiFiltersInput/MultiFiltersInput";
+export type { MultiFiltersInputStylesNames as MultiFiltersInputStylesNamesType } from "./components/MultiFiltersInput/MultiFiltersInput.classes";
 
 // Hooks
 export { useFilters } from "./hooks/useFilters";
