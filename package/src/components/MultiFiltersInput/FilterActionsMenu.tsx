@@ -104,7 +104,18 @@ export const FilterActionsMenu: React.FC<FilterActionsMenuProps> = ({
     <Menu position="bottom-end" shadow="lg" width={220} radius="md">
       <Menu.Target>
         <Tooltip label="Options" withArrow>
-          <ActionIcon variant="light" m="4" >
+          <ActionIcon
+            variant="light"
+            m="4"
+            onMouseDown={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            onClick={(event) => {
+              // Prevent parent combobox from toggling when opening the menu
+              event.stopPropagation();
+            }}
+          >
             <IconAdjustmentsHorizontal size={16} />
           </ActionIcon>
         </Tooltip>

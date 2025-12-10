@@ -147,15 +147,17 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
   }, [filters, activeFilters]);
 
   const filteredFields = useMemo(() => {
-    if (!inputValue.trim()) return availableFilters;
+    if (!inputValue.trim()) {
+      return availableFilters;
+    }
     return availableFilters.filter((f) =>
       f.label.toLowerCase().includes(inputValue.toLowerCase())
     );
   }, [availableFilters, inputValue]);
 
   const filteredOptions = useMemo(() => {
-    if (!selectedField?.options) return [];
-    if (!inputValue.trim()) return selectedField.options;
+    if (!selectedField?.options) {return [];}
+    if (!inputValue.trim()) {return selectedField.options;}
     return selectedField.options.filter((opt) =>
       opt.label.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -199,21 +201,10 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     setEditingPart(null);
   }, [onChange, resetInput]);
 
-  const handleFilterFieldClick = useCallback((filter: ActiveFilter) => {
-    const field = filters.find((f) => f.key === filter.key);
-    if (!field) return;
-    
-    setEditingFilterId(filter.id);
-    setEditingPart("field");
-    setSelectedField(field);
-    setInputValue("");
-    setInputStep("field");
-    combobox.openDropdown();
-  }, [filters, combobox]);
 
   const handleFilterOperatorClick = useCallback((filter: ActiveFilter) => {
     const field = filters.find((f) => f.key === filter.key);
-    if (!field) return;
+    if (!field) {return;}
     
     setEditingFilterId(filter.id);
     setEditingPart("operator");
@@ -232,7 +223,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
 
   const handleFilterValueClick = useCallback((filter: ActiveFilter) => {
     const field = filters.find((f) => f.key === filter.key);
-    if (!field) return;
+    if (!field) {return;}
     
     setEditingFilterId(filter.id);
     setEditingPart("value");
@@ -310,14 +301,13 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             combobox.openDropdown();
           }, 0);
         }
+      } else if (operators.length === 1) {
+        // New filter creation with a single operator
+        setSelectedOperator(operators[0]);
+        setInputStep("value");
       } else {
-        // New filter creation
-        if (operators.length === 1) {
-          setSelectedOperator(operators[0]);
-          setInputStep("value");
-        } else {
-          setInputStep("operator");
-        }
+        // New filter creation with multiple operators
+        setInputStep("operator");
       }
     },
     [editingFilterId, editingPart, combobox]
@@ -444,7 +434,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
 
   const addFilter = useCallback(
     (displayValue: string, rawValue: string | string[] | [Date | null, Date | null]) => {
-      if (!selectedField || !selectedOperator) return;
+      if (!selectedField || !selectedOperator) {return;}
 
       if (editingFilterId) {
         // Update existing filter
@@ -498,7 +488,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
   );
 
   const handleValueSubmit = useCallback(() => {
-    if (!selectedField || !selectedOperator) return;
+    if (!selectedField || !selectedOperator) {return;}
 
     // If editing, update the existing filter directly
     if (editingFilterId && editingPart === "value") {
@@ -640,7 +630,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
 
   const handleOptionSelect = useCallback(
     (value: string) => {
-      if (!selectedField) return;
+      if (!selectedField) {return;}
       if (selectedField.type === "multi_select") {
         setMultiSelectValues((prev) =>
           prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
@@ -654,7 +644,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
             f.id === editingFilterId
               ? {
                   ...f,
-                  value: value,
+                  value,
                   displayValue: option?.label || value,
                   operator: selectedOperator,
                 }
@@ -707,8 +697,8 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
     inputStep === "value" && (selectedField?.type === "date" || selectedField?.type === "date_range");
 
   const getInputPlaceholder = () => {
-    if (inputStep === "field") return placeholder;
-    if (inputStep === "operator") return operatorPlaceholder;
+    if (inputStep === "field") {return placeholder;}
+    if (inputStep === "operator") {return operatorPlaceholder;}
     if (inputStep === "value") {
       if (selectedField?.type === "select" || selectedField?.type === "multi_select") {
         return searchPlaceholder;
@@ -720,7 +710,7 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
 
   // Render value input based on field type
   const renderValueInput = () => {
-    if (!selectedField || inputStep !== "value") return null;
+    if (!selectedField || inputStep !== "value") {return null;}
 
     switch (selectedField.type) {
       case "date":
@@ -788,7 +778,9 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
         onOptionSubmit={(val) => {
           if (inputStep === "field") {
             const field = filters.find((f) => f.key === val);
-            if (field) handleFieldSelect(field);
+            if (field) {
+              handleFieldSelect(field);
+            }
           } else if (inputStep === "operator") {
             handleOperatorSelect(val as FilterOperator);
           } else if (inputStep === "value") {
@@ -802,7 +794,16 @@ export const MultiFiltersInput: React.FC<MultiFiltersInputExtendedProps> = ({
       >
         <Combobox.DropdownTarget>
           <div
-            onClick={() => !isInputDisabled && combobox.openDropdown()}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                if (!isInputDisabled) {
+                  combobox.openDropdown();
+                }
+              }
+            }}
             className={cx(classes.container, mergedClassNames.container)}
             style={resolvedStyles.container}
           >

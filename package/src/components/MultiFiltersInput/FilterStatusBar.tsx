@@ -14,12 +14,15 @@ export const FilterStatusBar: React.FC<FilterStatusBarProps> = ({
   maxFilters,
   onRefresh,
 }) => {
-  if (activeCount === 0) return null;
+  if (activeCount === 0) {
+    return null;
+  }
 
   return (
     <div className={classes.container}>
       <Tooltip label="Refresh filters">
         <button
+          type="button"
           onClick={onRefresh}
           className={classes.refreshButton}
         >
