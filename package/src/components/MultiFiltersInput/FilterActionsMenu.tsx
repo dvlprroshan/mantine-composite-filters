@@ -108,10 +108,6 @@ export const FilterActionsMenu: React.FC<FilterActionsMenuProps> = ({
             variant="light"
             m="4"
             onMouseDown={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-            onClick={(event) => {
               // Prevent parent combobox from toggling when opening the menu
               event.stopPropagation();
             }}
