@@ -838,6 +838,21 @@ const MultiFiltersInputBase: React.FC<MultiFiltersInputExtendedProps> = ({
           <div
             role="button"
             tabIndex={0}
+            onClick={() => {
+              if (!isInputDisabled) {
+                inputRef.current?.focus();
+                combobox.openDropdown();
+                combobox.selectFirstOption();
+              }
+            }}
+            onFocus={(e) => {
+              // When container gets focus (via tab), forward to input and open dropdown
+              if (e.target === e.currentTarget && !isInputDisabled) {
+                inputRef.current?.focus();
+                combobox.openDropdown();
+                combobox.selectFirstOption();
+              }
+            }}
             onKeyDown={(e) => {
               // Only handle Enter/Space when target is not an input (allow typing in inputs)
               const isInput = (e.target as HTMLElement).tagName === "INPUT";
