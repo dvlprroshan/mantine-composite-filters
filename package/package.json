@@ -1,6 +1,6 @@
 {
   "name": "mantine-composite-filters",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A powerful composite filters component for Mantine",
   "homepage": "https://dvlprroshan.github.io/mantine-composite-filters",
   "packageManager": "yarn@4.0.1",
@@ -13,7 +13,7 @@
     "react",
     "ui"
   ],
-  "main": "./dist/cjs/index.cjs", 
+  "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/index.d.ts",
   "exports": {
