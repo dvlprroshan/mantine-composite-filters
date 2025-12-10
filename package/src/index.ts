@@ -31,25 +31,49 @@ export * from "./utils";
 
 // Types
 export type {
+  // Core types
   ActiveFilter,
   FilterDefinition,
   FilterOperator,
   FilterOption,
   FilterType,
+  FilterValue,
+  FilterVariant,
+  
+  // Component props types
   MultiFiltersInputProps,
   MultiFiltersInputStylesNames,
   MultiFiltersInputStyles,
   MultiFiltersInputClassNames,
-  InputStep,
-  SavedFilterPreset,
-  FilterHistory,
-  FilterInputState,
-  FilterInputActions,
-  FilterInputContextType,
+  FilterPillProps,
+  
+  // Dropdown types
   FilterDropdownConfig,
   FieldDropdownProps,
   OperatorDropdownProps,
   ValueDropdownProps,
+  
+  // State types
+  InputStep,
+  FilterInputState,
+  FilterInputActions,
+  FilterInputContextType,
+  
+  // Storage types
+  SavedFilterPreset,
+  FilterHistory,
+  
+  // Hook options types
+  UseFiltersOptions,
+  UseFilterPresetsOptions,
+  UseFilterHistoryOptions,
+  
+  // Hook return types
+  UseFiltersReturn,
+  UseFilterPresetsReturn,
+  UseFilterHistoryReturn,
+  
+  // API types
+  ApiFilterFormat,
   FilterAction,
-  FilterVariant,
 } from "./types/filter.types";

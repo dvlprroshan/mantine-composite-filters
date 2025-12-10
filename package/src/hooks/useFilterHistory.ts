@@ -1,17 +1,16 @@
 import { useCallback, useEffect } from "react";
 import { useLocalStorage } from "@mantine/hooks";
-import type { ActiveFilter, FilterHistory } from "../types/filter.types";
-
-interface UseFilterHistoryOptions {
-  storageKey?: string;
-  maxHistory?: number;
-  enabled?: boolean;
-}
+import type { 
+  ActiveFilter, 
+  FilterHistory, 
+  UseFilterHistoryOptions,
+  UseFilterHistoryReturn 
+} from "../types/filter.types";
 
 export const useFilterHistory = (
   activeFilters: ActiveFilter[],
   options: UseFilterHistoryOptions = {}
-) => {
+): UseFilterHistoryReturn => {
   const { 
     storageKey = "filters-history", 
     maxHistory = 10,

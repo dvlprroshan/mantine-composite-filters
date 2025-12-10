@@ -8,13 +8,7 @@ import { WithPresets } from './WithPresets';
 import { CustomStyling } from './CustomStyling';
 import { CustomPills } from './CustomPills';
 import { KeyboardShortcuts } from './KeyboardShortcuts';
-import { RealWorldExample } from './RealWorldExample';
-import { EcommerceProductsDemo } from './EcommerceProductsDemo';
-import { IssueTrackerDemo } from './IssueTrackerDemo';
-import { CRMLeadsDemo } from './CRMLeadsDemo';
-import { HelpDeskDemo } from './HelpDeskDemo';
-import { TransactionsDemo } from './TransactionsDemo';
-import { AnalyticsDashboardDemo } from './AnalyticsDashboardDemo';
+import { SimpleDataTableDemo } from './SimpleDataTableDemo';
 
 export const usage: MantineDemo = {
   type: 'code',
@@ -70,44 +64,8 @@ export const keyboardShortcuts: MantineDemo = {
   code: '',
 };
 
-export const realWorldExample: MantineDemo = {
+export const simpleDataTable: MantineDemo = {
   type: 'code',
-  component: RealWorldExample,
-  code: '',
-};
-
-export const ecommerceProducts: MantineDemo = {
-  type: 'code',
-  component: EcommerceProductsDemo,
-  code: '',
-};
-
-export const issueTracker: MantineDemo = {
-  type: 'code',
-  component: IssueTrackerDemo,
-  code: '',
-};
-
-export const crmLeads: MantineDemo = {
-  type: 'code',
-  component: CRMLeadsDemo,
-  code: '',
-};
-
-export const helpDesk: MantineDemo = {
-  type: 'code',
-  component: HelpDeskDemo,
-  code: '',
-};
-
-export const transactions: MantineDemo = {
-  type: 'code',
-  component: TransactionsDemo,
-  code: '',
-};
-
-export const analyticsDashboard: MantineDemo = {
-  type: 'code',
-  component: AnalyticsDashboardDemo,
+  component: SimpleDataTableDemo,
   code: '',
 };

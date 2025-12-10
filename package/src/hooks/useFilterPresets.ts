@@ -3,15 +3,17 @@ import { useLocalStorage } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import React from "react";
-import type { ActiveFilter, SavedFilterPreset } from "../types/filter.types";
+import type { 
+  ActiveFilter, 
+  SavedFilterPreset, 
+  UseFilterPresetsOptions,
+  UseFilterPresetsReturn 
+} from "../types/filter.types";
 import { generateId } from "../utils";
 
-interface UseFilterPresetsOptions {
-  storageKey?: string;
-  onLoad?: (filters: ActiveFilter[]) => void;
-}
-
-export const useFilterPresets = (options: UseFilterPresetsOptions = {}) => {
+export const useFilterPresets = (
+  options: UseFilterPresetsOptions = {}
+): UseFilterPresetsReturn => {
   const { storageKey = "filters-saved-presets", onLoad } = options;
 
   const [savedPresets, setSavedPresets] = useLocalStorage<SavedFilterPreset[]>({

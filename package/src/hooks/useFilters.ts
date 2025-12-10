@@ -1,12 +1,15 @@
 import { useCallback, useMemo, useState } from "react";
-import type { ActiveFilter, FilterDefinition } from "../types/filter.types";
+import type { 
+  ActiveFilter, 
+  FilterDefinition, 
+  UseFiltersOptions,
+  UseFiltersReturn 
+} from "../types/filter.types";
 
-interface UseFiltersOptions {
-  initialFilters?: ActiveFilter[];
-  onFiltersChange?: (filters: ActiveFilter[]) => void;
-}
-
-export const useFilters = (filterDefinitions: FilterDefinition[], options?: UseFiltersOptions) => {
+export const useFilters = (
+  filterDefinitions: FilterDefinition[], 
+  options?: UseFiltersOptions
+): UseFiltersReturn => {
   const [activeFilters, setActiveFilters] = useState<ActiveFilter[]>(
     options?.initialFilters || []
   );

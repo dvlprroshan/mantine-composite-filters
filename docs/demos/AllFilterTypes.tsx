@@ -1,141 +1,100 @@
 import React, { useState } from 'react';
-import { MultiFiltersInput } from 'mantine-composite-filters';
-import { Card, Text, Badge, Group, Stack, SimpleGrid, ThemeIcon, Paper, Flex } from '@mantine/core';
-import {
-  IconLetterCase,
-  IconAt,
-  IconHash,
-  IconSelect,
-  IconCheckbox,
-  IconCalendar,
-  IconCalendarStats,
-} from '@tabler/icons-react';
-import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, MultiFiltersInput } from 'mantine-composite-filters';
+import { Stack, Badge, Group } from '@mantine/core';
 
-// Showcase all 7 filter types with realistic examples
-const allTypesFilters: FilterDefinition[] = [
+// All 7 filter types
+const allFilters: FilterDefinition[] = [
   {
-    key: 'product_name',
-    label: 'Product Name',
+    key: 'text_field',
+    label: 'Text',
     type: 'text',
-    placeholder: 'Search products...',
+    placeholder: 'Enter text...',
     operators: ['contains', 'starts_with', 'ends_with', '='],
-    icon: <IconLetterCase size={14} />,
   },
   {
-    key: 'customer_email',
-    label: 'Customer Email',
+    key: 'email_field',
+    label: 'Email',
     type: 'email',
-    placeholder: 'customer@example.com',
-    icon: <IconAt size={14} />,
+    placeholder: 'user@email.com',
   },
   {
-    key: 'order_total',
-    label: 'Order Total ($)',
+    key: 'number_field',
+    label: 'Number',
     type: 'number',
-    placeholder: 'Enter amount...',
+    placeholder: 'Enter number...',
     operators: ['=', '!=', '>', '<', '>=', '<='],
-    icon: <IconHash size={14} />,
   },
   {
-    key: 'payment_status',
-    label: 'Payment Status',
+    key: 'select_field',
+    label: 'Select',
     type: 'select',
     options: [
-      { value: 'paid', label: '✅ Paid' },
-      { value: 'pending', label: '⏳ Pending' },
-      { value: 'failed', label: '❌ Failed' },
-      { value: 'refunded', label: '↩️ Refunded' },
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
     ],
-    icon: <IconSelect size={14} />,
   },
   {
-    key: 'shipping_regions',
-    label: 'Shipping Regions',
+    key: 'multi_select_field',
+    label: 'Multi Select',
     type: 'multi_select',
     options: [
-      { value: 'north_america', label: '🇺🇸 North America' },
-      { value: 'europe', label: '🇪🇺 Europe' },
-      { value: 'asia', label: '🌏 Asia Pacific' },
-      { value: 'latin_america', label: '🌎 Latin America' },
+      { value: 'tag1', label: 'Tag 1' },
+      { value: 'tag2', label: 'Tag 2' },
+      { value: 'tag3', label: 'Tag 3' },
     ],
-    icon: <IconCheckbox size={14} />,
   },
   {
-    key: 'order_date',
-    label: 'Order Date',
+    key: 'date_field',
+    label: 'Date',
     type: 'date',
-    icon: <IconCalendar size={14} />,
   },
   {
-    key: 'delivery_window',
-    label: 'Delivery Window',
+    key: 'date_range_field',
+    label: 'Date Range',
     type: 'date_range',
-    icon: <IconCalendarStats size={14} />,
   },
 ];
 
-const filterTypeInfo = [
-  { type: 'text', icon: IconLetterCase, color: 'blue', desc: 'Free text with operators' },
-  { type: 'email', icon: IconAt, color: 'cyan', desc: 'Email validation' },
-  { type: 'number', icon: IconHash, color: 'green', desc: 'Numeric comparisons' },
-  { type: 'select', icon: IconSelect, color: 'grape', desc: 'Single choice' },
-  { type: 'multi_select', icon: IconCheckbox, color: 'orange', desc: 'Multiple choices' },
-  { type: 'date', icon: IconCalendar, color: 'pink', desc: 'Date picker' },
-  { type: 'date_range', icon: IconCalendarStats, color: 'teal', desc: 'Date range picker' },
-];
+const typeDescriptions = {
+  text: 'Free text input with operators',
+  email: 'Email with validation',
+  number: 'Numeric with comparison operators',
+  select: 'Single choice dropdown',
+  multi_select: 'Multiple choice selection',
+  date: 'Single date picker',
+  date_range: 'Date range picker',
+};
 
 export function AllFilterTypes() {
   const [filters, setFilters] = useState<ActiveFilter[]>([]);
 
   return (
-    <Stack gap="lg" p="xl" maw={1000}>
-      {/* Filter types legend */}
-      <Flex gap="xs" wrap="wrap">
-        {filterTypeInfo.map(({ type, icon: Icon, color, desc }) => (
-          <Paper key={type} withBorder p="xs" radius="md">
-            <Group gap="xs" wrap="nowrap">
-              <ThemeIcon size="sm" variant="light" color={color} radius="xl">
-                <Icon size={12} />
-              </ThemeIcon>
-              <div>
-                <Text size="xs" fw={600}>{type}</Text>
-                <Text size="xs" c="dimmed" lineClamp={1}>{desc}</Text>
-              </div>
-            </Group>
-          </Paper>
+    <Stack gap="md" p="md">
+      {/* Type badges */}
+      <Group gap="xs">
+        {Object.entries(typeDescriptions).map(([type, desc]) => (
+          <Badge key={type} variant="light" size="sm" title={desc}>
+            {type}
+          </Badge>
         ))}
-      </Flex>
+      </Group>
 
-      {/* The filter component */}
-      <Card withBorder p="md" radius="md">
-        <MultiFiltersInput
-          filters={allTypesFilters}
-          value={filters}
-          onChange={setFilters}
-          placeholder="🎯 Try each filter type - text, email, number, select, multi-select, date, date range..."
-        />
-      </Card>
+      <MultiFiltersInput
+        filters={allFilters}
+        value={filters}
+        onChange={setFilters}
+        placeholder="Try each filter type..."
+      />
 
-      {/* Active filters display */}
       {filters.length > 0 && (
-        <Card withBorder padding="md" radius="md">
-          <Text fw={600} size="sm" mb="sm">Applied Filters</Text>
-          <Group gap="xs">
-            {filters.map((filter) => (
-              <Badge 
-                key={filter.id} 
-                variant="light" 
-                size="lg"
-                leftSection={
-                  <Text span size="xs" c="dimmed">{filter.type}:</Text>
-                }
-              >
-                {filter.label} {filter.operator} {filter.displayValue}
-              </Badge>
-            ))}
-          </Group>
-        </Card>
+        <Group gap="xs">
+          {filters.map((f) => (
+            <Badge key={f.id} variant="outline">
+              {f.label}: {f.displayValue}
+            </Badge>
+          ))}
+        </Group>
       )}
     </Stack>
   );

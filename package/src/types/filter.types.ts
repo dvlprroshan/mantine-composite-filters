@@ -220,3 +220,75 @@ export interface FilterAction {
 // UI Variants
 export type FilterVariant = "default" | "compact" | "minimal" | "bordered";
 
+// Hook Options Types
+export interface UseFiltersOptions {
+  initialFilters?: ActiveFilter[];
+  onFiltersChange?: (filters: ActiveFilter[]) => void;
+}
+
+export interface UseFilterPresetsOptions {
+  storageKey?: string;
+  onLoad?: (filters: ActiveFilter[]) => void;
+}
+
+export interface UseFilterHistoryOptions {
+  storageKey?: string;
+  maxHistory?: number;
+  enabled?: boolean;
+}
+
+// Hook Return Types
+export interface UseFiltersReturn {
+  activeFilters: ActiveFilter[];
+  setActiveFilters: (filters: ActiveFilter[]) => void;
+  filterDefinitions: FilterDefinition[];
+  addFilter: (filter: Omit<ActiveFilter, "id">) => void;
+  removeFilter: (id: string) => void;
+  clearFilters: () => void;
+  updateFilter: (id: string, updates: Partial<ActiveFilter>) => void;
+  getFilterByKey: (key: string) => ActiveFilter | undefined;
+  hasFilter: (key: string) => boolean;
+  toQueryParams: Record<string, string | string[]>;
+  toApiFormat: Array<{ field: string; operator: FilterOperator; value: ActiveFilter["value"] }>;
+  filtersCount: number;
+}
+
+export interface UseFilterPresetsReturn {
+  presets: SavedFilterPreset[];
+  sortedPresets: SavedFilterPreset[];
+  savePreset: (filters: ActiveFilter[], name?: string) => SavedFilterPreset | null;
+  loadPreset: (preset: SavedFilterPreset) => void;
+  toggleFavorite: (presetId: string) => void;
+  deletePreset: (presetId: string) => void;
+  updatePreset: (presetId: string, updates: Partial<Omit<SavedFilterPreset, "id">>) => void;
+  hasPresets: boolean;
+}
+
+export interface UseFilterHistoryReturn {
+  history: FilterHistory[];
+  recentHistory: FilterHistory[];
+  clearHistory: () => void;
+  removeHistoryItem: (timestamp: number) => void;
+  hasHistory: boolean;
+}
+
+// API Filter Format
+export interface ApiFilterFormat {
+  field: string;
+  operator: FilterOperator;
+  value: ActiveFilter["value"];
+}
+
+// Filter Value Types
+export type FilterValue = string | string[] | [Date | null, Date | null];
+
+// Pill Props for custom rendering
+export interface FilterPillProps {
+  filter: ActiveFilter;
+  onRemove: (id: string) => void;
+  onOperatorClick?: (filter: ActiveFilter) => void;
+  onValueClick?: (filter: ActiveFilter) => void;
+  isHighlighted?: boolean;
+  isCompact?: boolean;
+}
+
