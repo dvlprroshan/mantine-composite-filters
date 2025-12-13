@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { CompositeFiltersInput } from 'mantine-composite-filters';
 import { Stack, Title, Text, Box } from '@mantine/core';
-import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, CompositeFiltersInput } from 'mantine-composite-filters';
 
 const sampleFilters: FilterDefinition[] = [
   {

@@ -3,8 +3,10 @@ import cx from 'clsx';
 import type { MDXComponents } from 'mdx/types';
 import { CodeHighlight } from '@mantine/code-highlight';
 import { Anchor, Code, Image, Table, Title } from '@mantine/core';
-import { Demo } from '@mantinex/demo';
+import { Demo as MantineDemo } from '@mantinex/demo';
 import { MdxInfo } from '../MdxInfo/MdxInfo';
+import { PropsTablesList } from '../PropsTable';
+import docgen from '../../docgen.json';
 import classes from './MdxElements.module.css';
 
 export function MdxTitle({
@@ -93,6 +95,16 @@ export function MdxTd(props: React.ComponentPropsWithoutRef<'td'>) {
   return <Table.Td className={classes.td} {...props} />;
 }
 
+// Wrapper to set defaultExpanded: false
+function Demo(props: React.ComponentProps<typeof MantineDemo>) {
+  return <MantineDemo {...props} demoProps={{ defaultExpanded: false, ...props.demoProps }} />;
+}
+
+// Props table wrapper with docgen data
+function PropsTable({ component }: { component: string }) {
+  return <PropsTablesList components={[component]} data={docgen} />;
+}
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     img: Image as any,
@@ -116,6 +128,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     th: MdxTh,
     td: MdxTd,
     Demo,
+    PropsTable,
     ...components,
   };
 }
