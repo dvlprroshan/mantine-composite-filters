@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { CompositeFiltersInput } from 'mantine-composite-filters';
 import { Stack, Text, Card, List } from '@mantine/core';
-import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, CompositeFiltersInput } from 'mantine-composite-filters';
 
 const filters: FilterDefinition[] = [
   { key: 'name', label: 'Name', type: 'text' },
@@ -28,7 +27,7 @@ export function WithPresets() {
         storageKeyPrefix="presets-demo"
       />
 
-      <Card withBorder p="sm" radius="md" bg="gray.0">
+      <Card withBorder p="sm" radius="md" >
         <Text size="sm" fw={500} mb="xs">Click the ⋮ menu to:</Text>
         <List size="sm" spacing={4}>
           <List.Item>Save current filters as a preset</List.Item>

@@ -53,7 +53,7 @@ export function CustomStyling() {
             container: {
               border: '2px solid var(--mantine-color-blue-5)',
               borderRadius: '12px',
-              backgroundColor: 'var(--mantine-color-blue-0)',
+              backgroundColor: 'light-dark(var(--mantine-color-blue-0), var(--mantine-color-blue-9))',
             },
           }}
         />
@@ -71,9 +71,9 @@ export function CustomStyling() {
           placeholder="Search..."
           styles={{
             container: {
-              border: '1px solid var(--mantine-color-gray-3)',
+              border: '1px solid var(--mantine-color-default-border)',
               borderRadius: '4px',
-              backgroundColor: 'var(--mantine-color-gray-0)',
+              backgroundColor: 'var(--mantine-color-default)',
             },
             input: {
               fontSize: '13px',

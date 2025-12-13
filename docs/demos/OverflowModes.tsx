@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CompositeFiltersInput } from 'mantine-composite-filters';
-import { Stack, Title, Text } from '@mantine/core';
+import { Stack, Title, Text, Box } from '@mantine/core';
 import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
 
 const sampleFilters: FilterDefinition[] = [
@@ -51,7 +51,7 @@ export function OverflowModes() {
           <Text size="sm" c="dimmed" mb="md">
             Filters scroll horizontally when they exceed the container width
           </Text>
-          <div style={{ maxWidth: 400, border: '1px solid #e0e0e0', borderRadius: 8, padding: 12 }}>
+          <Box style={{ maxWidth: 400 }}>
             <CompositeFiltersInput
               filters={sampleFilters}
               value={filtersScroll}
@@ -59,7 +59,7 @@ export function OverflowModes() {
               overflowMode="scroll"
               placeholder="Filter by... (scroll mode)"
             />
-          </div>
+          </Box>
         </div>
 
         <div>
@@ -67,7 +67,7 @@ export function OverflowModes() {
           <Text size="sm" c="dimmed" mb="md">
             Filters wrap to multiple lines when they exceed the container width
           </Text>
-          <div style={{ maxWidth: 400, border: '1px solid #e0e0e0', borderRadius: 8, padding: 12 }}>
+          <Box style={{ maxWidth: 400 }}>
             <CompositeFiltersInput
               filters={sampleFilters}
               value={filtersWrap}
@@ -75,7 +75,7 @@ export function OverflowModes() {
               overflowMode="wrap"
               placeholder="Filter by... (wrap mode)"
             />
-          </div>
+          </Box>
         </div>
       </Stack>
     </div>
