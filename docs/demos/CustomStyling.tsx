@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { CompositeFiltersInput } from 'mantine-composite-filters';
-import { Stack, Text, Card, Badge, Code, Group, Divider } from '@mantine/core';
-import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
+import { Stack, Badge, Group } from '@mantine/core';
+import { type ActiveFilter, type FilterDefinition, CompositeFiltersInput } from 'mantine-composite-filters';
 
 const sampleFilters: FilterDefinition[] = [
   {
@@ -101,26 +100,6 @@ export function CustomStyling() {
             },
           }}
         />
-      </div>
-
-      <Divider my="xs" />
-
-      {/* Code example */}
-      <div>
-        <Text size="sm" fw={500} mb="xs">Style Props Reference</Text>
-        <Code block>
-{`styles={{
-  root: {},           // Outermost wrapper
-  container: {},      // Main input container
-  leftIcon: {},       // Left icon area
-  pillsContainer: {}, // Filter pills wrapper
-  input: {},          // Text input element
-  rightSection: {},   // Right section (menu button)
-  dropdown: {},       // Dropdown menu
-  badge: {},          // Filter count badge
-  clearButton: {},    // Clear all button
-}}`}
-        </Code>
       </div>
     </Stack>
   );

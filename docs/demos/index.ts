@@ -9,6 +9,8 @@ import { CustomStyling } from './CustomStyling';
 import { CustomPills } from './CustomPills';
 import { KeyboardShortcuts } from './KeyboardShortcuts';
 import { SimpleDataTableDemo } from './SimpleDataTableDemo';
+import { StylesApiDemo } from './StylesApiDemo';
+import { CompositeFiltersInputStylesApi } from '../styles-api/CompositeFiltersInput.styles-api';
 
 export const usage: MantineDemo = {
   type: 'code',
@@ -68,4 +70,30 @@ export const simpleDataTable: MantineDemo = {
   type: 'code',
   component: SimpleDataTableDemo,
   code: '',
+};
+
+const stylesApiCode = `
+import { CompositeFiltersInput } from 'mantine-composite-filters';
+
+function Demo() {
+  const [filters, setFilters] = useState([]);
+
+  return (
+    <CompositeFiltersInput{{props}}
+      filters={sampleFilters}
+      value={filters}
+      onChange={setFilters}
+      placeholder="Filter items..."
+    />
+  );
+}
+`;
+
+export const stylesApi: MantineDemo = {
+  type: 'styles-api',
+  data: CompositeFiltersInputStylesApi,
+  component: StylesApiDemo,
+  code: stylesApiCode,
+  centered: true,
+  maxWidth: 500,
 };

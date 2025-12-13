@@ -78,7 +78,13 @@ Built-in features (all persisted to localStorage):
 - **Favorites** - Quick access to frequently used presets
 - **History** - Auto-tracked recent filter combinations
 
-## Styling
+## Styles API
+
+`CompositeFiltersInput` supports [Styles API](https://mantine.dev/styles/styles-api/), you can add styles to any inner element of the component with `classNames` prop.
+
+<Demo data={demos.stylesApi} />
+
+## Styling Examples
 
 Make it yours with `styles` or `classNames`:
 
@@ -112,17 +118,6 @@ Make it yours with `styles` or `classNames`:
 .my-filter { border: 2px solid #228be6; }
 .my-filter:focus-within { box-shadow: 0 0 0 2px rgba(34, 139, 230, 0.2); }
 ```
-
-### Style Targets
-
-| Target | What it styles |
-|--------|----------------|
-| `root` | Outermost wrapper |
-| `container` | Main input box |
-| `pillsContainer` | Filter chips area |
-| `input` | Text input |
-| `rightSection` | Menu button area |
-| `dropdown` | Dropdown menus |
 
 ## Custom Pills
 

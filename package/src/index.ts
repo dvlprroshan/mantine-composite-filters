@@ -2,6 +2,7 @@
 export { default as CompositeFiltersInput } from "./components/CompositeFiltersInput";
 export {
   CompositeFiltersInput as CompositeFiltersInputComponent,
+  MultiFiltersInput as MultiFiltersInputComponent,
   FilterPill,
   CurrentFieldIndicator,
   FilterActionsMenu,
