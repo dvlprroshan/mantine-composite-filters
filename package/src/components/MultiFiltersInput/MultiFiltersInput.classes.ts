@@ -43,3 +43,4 @@ export const multiFiltersInputClasses: Record<MultiFiltersInputStylesNames, stri
   badge: staticClasses.badge,
   clearButton: staticClasses.clearButton,
 };
+

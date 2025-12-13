@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { MultiFiltersInput } from 'mantine-composite-filters';
 import { Card, Table, Badge, Group, Text, Avatar, Stack } from '@mantine/core';
-import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, MultiFiltersInput } from 'mantine-composite-filters';
 
 // Simple filter definitions
 const filters: FilterDefinition[] = [
@@ -69,12 +68,12 @@ export function SimpleDataTableDemo() {
 
   // Simple client-side filtering
   const filteredUsers = useMemo(() => {
-    if (activeFilters.length === 0) return users;
+    if (activeFilters.length === 0) {return users;}
     
     return users.filter(user => {
       return activeFilters.every(filter => {
         const value = user[filter.key as keyof typeof user];
-        if (!value) return true;
+        if (!value) {return true;}
         
         switch (filter.operator) {
           case 'contains':
