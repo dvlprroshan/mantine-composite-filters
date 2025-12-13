@@ -1,5 +1,5 @@
 export const STYLES_API_DATA: Record<string, any> = {
-  MultiFiltersInput: {
+  CompositeFiltersInput: {
     selectors: {
       root: 'Root element (Box wrapper)',
       container: 'Main container with border and background',

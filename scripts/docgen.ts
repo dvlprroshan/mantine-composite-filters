@@ -5,7 +5,7 @@ const getComponentPath = (componentPath: string) =>
   path.join(process.cwd(), 'package/src', componentPath);
 
 generateDeclarations({
-  componentsPaths: [getComponentPath('components/MultiFiltersInput/MultiFiltersInput.tsx')],
+  componentsPaths: [getComponentPath('components/CompositeFiltersInput/CompositeFiltersInput.tsx')],
   tsConfigPath: path.join(process.cwd(), 'tsconfig.json'),
   outputPath: path.join(process.cwd(), 'docs'),
 });

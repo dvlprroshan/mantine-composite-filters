@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { type ActiveFilter, type FilterDefinition, MultiFiltersInput } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, CompositeFiltersInput } from 'mantine-composite-filters';
 import { 
   Badge, 
   ActionIcon, 
@@ -163,7 +163,7 @@ export function CustomPills() {
         ]}
       />
 
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={filters}
         value={activeFilters}
         onChange={setActiveFilters}

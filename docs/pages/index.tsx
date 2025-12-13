@@ -13,8 +13,8 @@ export default function HomePage() {
       <PageHeader data={PACKAGE_DATA} />
       <DocsTabs
         docgen={docgen}
-        componentsProps={['MultiFiltersInput']}
-        componentsStyles={['MultiFiltersInput']}
+        componentsProps={['CompositeFiltersInput']}
+        componentsStyles={['CompositeFiltersInput']}
         stylesApiData={STYLES_API_DATA}
       >
         <Docs />

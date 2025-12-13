@@ -49,7 +49,7 @@ export interface ActiveFilter {
   icon?: React.ReactNode;
 }
 
-export type MultiFiltersInputStylesNames = 
+export type CompositeFiltersInputStylesNames = 
   | 'root'
   | 'container'
   | 'leftIcon'
@@ -60,7 +60,7 @@ export type MultiFiltersInputStylesNames =
   | 'badge'
   | 'clearButton';
 
-export interface MultiFiltersInputStyles {
+export interface CompositeFiltersInputStyles {
   root?: React.CSSProperties;
   container?: React.CSSProperties;
   leftIcon?: React.CSSProperties;
@@ -72,7 +72,7 @@ export interface MultiFiltersInputStyles {
   clearButton?: React.CSSProperties;
 }
 
-export interface MultiFiltersInputClassNames {
+export interface CompositeFiltersInputClassNames {
   root?: string;
   container?: string;
   leftIcon?: string;
@@ -84,7 +84,7 @@ export interface MultiFiltersInputClassNames {
   clearButton?: string;
 }
 
-export interface MultiFiltersInputProps extends Omit<BoxProps, 'children'> {
+export interface CompositeFiltersInputProps extends Omit<BoxProps, 'children'> {
   filters: FilterDefinition[];
   value: ActiveFilter[];
   onChange: (filters: ActiveFilter[]) => void;
@@ -106,9 +106,9 @@ export interface MultiFiltersInputProps extends Omit<BoxProps, 'children'> {
   /** Variants for different UI styles */
   variant?: FilterVariant;
   /** Styles applied to different parts of the component */
-  styles?: MultiFiltersInputStyles | ((theme: any) => MultiFiltersInputStyles);
+  styles?: CompositeFiltersInputStyles | ((theme: any) => CompositeFiltersInputStyles);
   /** ClassNames applied to different parts of the component */
-  classNames?: MultiFiltersInputClassNames;
+  classNames?: CompositeFiltersInputClassNames;
 }
 
 // Input step state

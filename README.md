@@ -26,7 +26,7 @@ npm install @mantine/core @mantine/hooks @mantine/dates @mantine/notifications @
 ## Usage
 
 ```tsx
-import { MultiFiltersInput } from 'mantine-composite-filters';
+import { CompositeFiltersInput } from 'mantine-composite-filters';
 import 'mantine-composite-filters/styles.css';
 
 const filterFields = [
@@ -40,7 +40,7 @@ function App() {
   const [filters, setFilters] = useState([]);
 
   return (
-    <MultiFiltersInput
+    <CompositeFiltersInput
       fields={filterFields}
       value={filters}
       onChange={setFilters}

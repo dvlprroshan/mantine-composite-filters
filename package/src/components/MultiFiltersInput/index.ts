@@ -1,28 +1,25 @@
-// Main component
-export { MultiFiltersInput as default } from "./MultiFiltersInput";
-export { MultiFiltersInput } from "./MultiFiltersInput";
-export type { MultiFiltersInputExtendedProps } from "./MultiFiltersInput";
+export {CompositeFiltersInput as default} from "../CompositeFiltersInput";
+export { CompositeFiltersInput as MultiFiltersInput } from "../CompositeFiltersInput";
 
 // Styles API
 export { 
-  multiFiltersInputClasses,
-  staticClasses as multiFiltersInputStaticClasses,
-  type MultiFiltersInputStylesNames 
-} from "./MultiFiltersInput.classes";
-
-// Sub-components for customization
-export { FilterPill } from "./FilterPill";
-export { CurrentFieldIndicator } from "./CurrentFieldIndicator";
-export { FilterActionsMenu } from "./FilterActionsMenu";
-export { FilterStatusBar } from "./FilterStatusBar";
-export { FilterMaxReached } from "./FilterMaxReached";
-
-// Dropdowns
-export * from "./dropdowns";
-
-// Value inputs
-export * from "./value-inputs";
-
-// Context (for advanced usage)
-export * from "./context";
-
+    CompositeFiltersInputClasses as MultiFiltersInputClasses,
+    staticClasses as MultiFiltersInputStaticClasses,
+    type CompositeFiltersInputStylesNames as MultiFiltersInputStylesNames 
+  } from "../CompositeFiltersInput/CompositeFiltersInput.classes";
+  
+  // Sub-components for customization
+  export { FilterPill } from "../CompositeFiltersInput/FilterPill";
+  export { CurrentFieldIndicator } from "../CompositeFiltersInput/CurrentFieldIndicator";
+  export { FilterActionsMenu } from "../CompositeFiltersInput/FilterActionsMenu";
+  export { FilterStatusBar } from "../CompositeFiltersInput/FilterStatusBar";
+  export { FilterMaxReached } from "../CompositeFiltersInput/FilterMaxReached";
+  
+  // Dropdowns
+  export * from "../CompositeFiltersInput/dropdowns";
+  
+  // Value inputs
+  export * from "../CompositeFiltersInput/value-inputs";
+  
+  // Context (for advanced usage)
+  export * from "../CompositeFiltersInput/context";

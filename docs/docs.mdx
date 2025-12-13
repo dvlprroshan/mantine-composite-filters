@@ -7,7 +7,7 @@ import * as demos from './demos';
 
 ## Overview
 
-Build powerful filter interfaces in minutes. `MultiFiltersInput` brings LinkedIn-style composite filtering to your Mantine apps - complete with type-safe definitions, smart operators, presets, and full keyboard support.
+Build powerful filter interfaces in minutes. `CompositeFiltersInput` brings LinkedIn-style composite filtering to your Mantine apps - complete with type-safe definitions, smart operators, presets, and full keyboard support.
 
 **Why use this?**
 - Type any field name to start filtering
@@ -23,7 +23,7 @@ Build powerful filter interfaces in minutes. `MultiFiltersInput` brings LinkedIn
 Three props to get started:
 
 ```tsx
-<MultiFiltersInput
+<CompositeFiltersInput
   filters={filterDefinitions}  // What fields can be filtered
   value={activeFilters}        // Current filter state
   onChange={setActiveFilters}  // State updater
@@ -88,14 +88,14 @@ Make it yours with `styles` or `classNames`:
 
 ```tsx
 // Direct object
-<MultiFiltersInput
+<CompositeFiltersInput
   styles={{
     container: { borderRadius: '12px', borderColor: 'blue' },
   }}
 />
 
 // Theme-aware function
-<MultiFiltersInput
+<CompositeFiltersInput
   styles={(theme) => ({
     container: { backgroundColor: theme.colors.gray[0] },
   })}
@@ -105,7 +105,7 @@ Make it yours with `styles` or `classNames`:
 ### CSS Classes
 
 ```tsx
-<MultiFiltersInput classNames={{ container: 'my-filter' }} />
+<CompositeFiltersInput classNames={{ container: 'my-filter' }} />
 ```
 
 ```css
@@ -205,7 +205,7 @@ See it work with real data filtering:
 **Extend the Menu** - Add your own actions:
 
 ```tsx
-<MultiFiltersInput
+<CompositeFiltersInput
   customActions={[
     { id: 'export', label: 'Export', onClick: handleExport },
     { id: 'share', label: 'Share Link', onClick: handleShare },
@@ -216,8 +216,8 @@ See it work with real data filtering:
 **Isolate Storage** - Use `storageKeyPrefix` when you have multiple filter instances:
 
 ```tsx
-<MultiFiltersInput storageKeyPrefix="users-page" />
-<MultiFiltersInput storageKeyPrefix="orders-page" />
+<CompositeFiltersInput storageKeyPrefix="users-page" />
+<CompositeFiltersInput storageKeyPrefix="orders-page" />
 ```
 
 ## API Reference

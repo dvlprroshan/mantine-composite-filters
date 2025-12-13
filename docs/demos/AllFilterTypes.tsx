@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { type ActiveFilter, type FilterDefinition, MultiFiltersInput } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, CompositeFiltersInput } from 'mantine-composite-filters';
 import { Stack, Badge, Group } from '@mantine/core';
 
 // All 7 filter types
@@ -80,7 +80,7 @@ export function AllFilterTypes() {
         ))}
       </Group>
 
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={allFilters}
         value={filters}
         onChange={setFilters}

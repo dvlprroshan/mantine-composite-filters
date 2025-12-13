@@ -4,13 +4,13 @@ import { ActionIcon, Badge, Box, Combobox, Tooltip, useCombobox, useMantineTheme
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
 import { IconSearch, IconX } from "@tabler/icons-react";
 import cx from "clsx";
-import classes from "./MultiFiltersInput.module.css";
+import classes from "./CompositeFiltersInput.module.css";
 import { 
   staticClasses, 
   cssModuleClasses, 
-  multiFiltersInputClasses,
-  type MultiFiltersInputStylesNames 
-} from "./MultiFiltersInput.classes";
+  CompositeFiltersInputClasses,
+  type CompositeFiltersInputStylesNames 
+} from "./CompositeFiltersInput.classes";
 
 import { useFilterHistory } from "../../hooks/useFilterHistory";
 import { useFilterPresets } from "../../hooks/useFilterPresets";
@@ -20,9 +20,8 @@ import type {
   FilterDefinition,
   FilterOperator,
   InputStep,
-  MultiFiltersInputProps,
-  MultiFiltersInputStyles,
-  MultiFiltersInputClassNames,
+  CompositeFiltersInputProps,
+  CompositeFiltersInputStyles,
 } from "../../types/filter.types";
 import { formatDate, formatDateRange, generateId, getOperatorsForField } from "../../utils";
 
@@ -35,7 +34,7 @@ import { DateRangeValueInput, DateValueInput } from "./value-inputs";
 
 export type FilterOverflowMode = "scroll" | "wrap";
 
-export interface MultiFiltersInputExtendedProps extends MultiFiltersInputProps {
+export interface CompositeFiltersInputExtendedProps extends CompositeFiltersInputProps {
   /** Custom renderer for filter pills */
   renderPill?: (filter: ActiveFilter, onRemove: () => void) => React.ReactNode;
   /** Disable presets feature */
@@ -57,11 +56,11 @@ export interface MultiFiltersInputExtendedProps extends MultiFiltersInputProps {
 }
 
 // Component type with static classes property (Mantine Styles API pattern)
-type MultiFiltersInputComponent = React.FC<MultiFiltersInputExtendedProps> & {
-  classes: Record<MultiFiltersInputStylesNames, string>;
+type CompositeFiltersInputComponent = React.FC<CompositeFiltersInputExtendedProps> & {
+  classes: Record<CompositeFiltersInputStylesNames, string>;
 };
 
-const MultiFiltersInputBase: React.FC<MultiFiltersInputExtendedProps> = ({
+const CompositeFiltersInputBase: React.FC<CompositeFiltersInputExtendedProps> = ({
   filters,
   value: activeFilters,
   onChange,
@@ -84,12 +83,12 @@ const MultiFiltersInputBase: React.FC<MultiFiltersInputExtendedProps> = ({
   const theme = useMantineTheme();
   
   // Resolve styles (can be object or function)
-  const resolvedStyles: MultiFiltersInputStyles = useMemo(() => {
+  const resolvedStyles: CompositeFiltersInputStyles = useMemo(() => {
     return typeof styles === 'function' ? styles(theme) : (styles || {});
   }, [styles, theme]);
 
   // Merge static classes, CSS module classes, and custom classNames
-  const getClassName = useCallback((selector: MultiFiltersInputStylesNames): string => {
+  const getClassName = useCallback((selector: CompositeFiltersInputStylesNames): string => {
     return cx(
       staticClasses[selector],
       cssModuleClasses[selector],
@@ -1047,9 +1046,9 @@ const MultiFiltersInputBase: React.FC<MultiFiltersInputExtendedProps> = ({
 };
 
 // Create the component with static classes property (Mantine Styles API pattern)
-export const MultiFiltersInput = Object.assign(MultiFiltersInputBase, {
-  classes: multiFiltersInputClasses,
-}) as MultiFiltersInputComponent;
+export const CompositeFiltersInput = Object.assign(CompositeFiltersInputBase, {
+  classes: CompositeFiltersInputClasses,
+}) as CompositeFiltersInputComponent;
 
-export default MultiFiltersInput;
+export default CompositeFiltersInput;
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { type ActiveFilter, type FilterDefinition, MultiFiltersInput } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, CompositeFiltersInput } from 'mantine-composite-filters';
 import { Stack, TextInput, NumberInput, Switch, Select, Paper, Group, Box, Text, Divider } from '@mantine/core';
 
 const filters: FilterDefinition[] = [
@@ -29,7 +29,7 @@ export function Configurator() {
     <Group align="flex-start" gap="md" p="md" wrap="nowrap">
       {/* Filter Component */}
       <Box style={{ flex: 1, minWidth: 0 }}>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={filters}
           value={activeFilters}
           onChange={setActiveFilters}

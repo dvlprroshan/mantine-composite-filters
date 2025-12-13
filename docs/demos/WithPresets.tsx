@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MultiFiltersInput } from 'mantine-composite-filters';
+import { CompositeFiltersInput } from 'mantine-composite-filters';
 import { Stack, Text, Card, List } from '@mantine/core';
 import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
 
@@ -18,7 +18,7 @@ export function WithPresets() {
 
   return (
     <Stack gap="md" p="md">
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={filters}
         value={activeFilters}
         onChange={setActiveFilters}

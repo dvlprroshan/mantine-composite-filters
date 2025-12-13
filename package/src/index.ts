@@ -1,7 +1,7 @@
 // Components
-export { default as MultiFiltersInput } from "./components/MultiFiltersInput";
+export { default as CompositeFiltersInput } from "./components/CompositeFiltersInput";
 export {
-  MultiFiltersInput as MultiFiltersInputComponent,
+  CompositeFiltersInput as CompositeFiltersInputComponent,
   FilterPill,
   CurrentFieldIndicator,
   FilterActionsMenu,
@@ -15,11 +15,11 @@ export {
   FilterProvider,
   useFilterContext,
   // Styles API
-  multiFiltersInputClasses,
-  multiFiltersInputStaticClasses,
-} from "./components/MultiFiltersInput";
-export type { FilterOverflowMode, MultiFiltersInputExtendedProps } from "./components/MultiFiltersInput/MultiFiltersInput";
-export type { MultiFiltersInputStylesNames as MultiFiltersInputStylesNamesType } from "./components/MultiFiltersInput/MultiFiltersInput.classes";
+  CompositeFiltersInputClasses,
+  CompositeFiltersInputStaticClasses,
+} from "./components/CompositeFiltersInput";
+export type { FilterOverflowMode, CompositeFiltersInputExtendedProps } from "./components/CompositeFiltersInput/CompositeFiltersInput";
+export type { CompositeFiltersInputStylesNames as CompositeFiltersInputStylesNamesType } from "./components/CompositeFiltersInput/CompositeFiltersInput.classes";
 
 // Hooks
 export { useFilters } from "./hooks/useFilters";
@@ -41,10 +41,10 @@ export type {
   FilterVariant,
   
   // Component props types
-  MultiFiltersInputProps,
-  MultiFiltersInputStylesNames,
-  MultiFiltersInputStyles,
-  MultiFiltersInputClassNames,
+  CompositeFiltersInputProps,
+  CompositeFiltersInputStylesNames,
+  CompositeFiltersInputStyles,
+  CompositeFiltersInputClassNames,
   FilterPillProps,
   
   // Dropdown types

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MultiFiltersInput } from 'mantine-composite-filters';
+import { CompositeFiltersInput } from 'mantine-composite-filters';
 import { Stack, Text, Card, Badge, Code, Group, Divider } from '@mantine/core';
 import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
 
@@ -45,7 +45,7 @@ export function CustomStyling() {
         <Group mb="xs" gap="xs">
           <Badge variant="light" color="blue" size="sm">Accent Border</Badge>
         </Group>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={sampleFilters}
           value={filters1}
           onChange={setFilters1}
@@ -65,7 +65,7 @@ export function CustomStyling() {
         <Group mb="xs" gap="xs">
           <Badge variant="light" color="gray" size="sm">Minimal Style</Badge>
         </Group>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={sampleFilters}
           value={filters2}
           onChange={setFilters2}
@@ -88,7 +88,7 @@ export function CustomStyling() {
         <Group mb="xs" gap="xs">
           <Badge variant="light" color="grape" size="sm">Pill Style</Badge>
         </Group>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={sampleFilters}
           value={filters3}
           onChange={setFilters3}

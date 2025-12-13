@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { MantineProvider } from '@mantine/core';
-import { MultiFiltersInput } from './MultiFiltersInput';
+import { CompositeFiltersInput } from './CompositeFiltersInput';
 import type { ActiveFilter, FilterDefinition } from '../../types/filter.types';
 
 export default {
-  title: 'MultiFiltersInput',
-  component: MultiFiltersInput,
+  title: 'CompositeFiltersInput',
+  component: CompositeFiltersInput,
 };
 
 const sampleFilters: FilterDefinition[] = [
@@ -67,7 +67,7 @@ export function Usage() {
 
   return (
     <div style={{ padding: 40, maxWidth: 800 }}>
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={sampleFilters}
         value={filters}
         onChange={setFilters}
@@ -88,7 +88,7 @@ export function WithMaxFilters() {
 
   return (
     <div style={{ padding: 40, maxWidth: 800 }}>
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={sampleFilters}
         value={filters}
         onChange={setFilters}
@@ -104,7 +104,7 @@ export function WithPresets() {
 
   return (
     <div style={{ padding: 40, maxWidth: 800 }}>
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={sampleFilters}
         value={filters}
         onChange={setFilters}
@@ -121,7 +121,7 @@ export function OverflowWrap() {
 
   return (
     <div style={{ padding: 40, maxWidth: 400 }}>
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={sampleFilters}
         value={filters}
         onChange={setFilters}
@@ -137,7 +137,7 @@ export function CompactMode() {
 
   return (
     <div style={{ padding: 40, maxWidth: 800 }}>
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={sampleFilters}
         value={filters}
         onChange={setFilters}
@@ -202,7 +202,7 @@ export function AllFilterTypes() {
 
   return (
     <div style={{ padding: 40, maxWidth: 800 }}>
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={allTypesFilters}
         value={filters}
         onChange={setFilters}
@@ -223,7 +223,7 @@ export function DisabledFeatures() {
 
   return (
     <div style={{ padding: 40, maxWidth: 800 }}>
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={sampleFilters}
         value={filters}
         onChange={setFilters}
@@ -241,7 +241,7 @@ export function DarkMode() {
   return (
     <MantineProvider defaultColorScheme="dark">
       <div style={{ padding: 40, maxWidth: 800, background: 'var(--mantine-color-dark-7)', minHeight: '100vh' }}>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={sampleFilters}
           value={filters}
           onChange={setFilters}

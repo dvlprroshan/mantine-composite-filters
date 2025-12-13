@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Card, Table, Badge, Group, Text, Avatar, Stack } from '@mantine/core';
-import { type ActiveFilter, type FilterDefinition, MultiFiltersInput } from 'mantine-composite-filters';
+import { type ActiveFilter, type FilterDefinition, CompositeFiltersInput } from 'mantine-composite-filters';
 
 // Simple filter definitions
 const filters: FilterDefinition[] = [
@@ -92,7 +92,7 @@ export function SimpleDataTableDemo() {
   return (
     <Stack gap="md" p="md">
       {/* Filter Input */}
-      <MultiFiltersInput
+      <CompositeFiltersInput
         filters={filters}
         value={activeFilters}
         onChange={setActiveFilters}

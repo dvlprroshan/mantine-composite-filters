@@ -1,12 +1,12 @@
-import classes from './MultiFiltersInput.module.css';
-import type { MultiFiltersInputStylesNames } from '../../types/filter.types';
+import classes from './CompositeFiltersInput.module.css';
+import type { CompositeFiltersInputStylesNames } from '../../types/filter.types';
 
-export type { MultiFiltersInputStylesNames };
+export type { CompositeFiltersInputStylesNames };
 
 // Static class names following Mantine pattern: .mantine-{ComponentName}-{selector}
-export const COMPONENT_NAME = 'MultiFiltersInput';
+export const COMPONENT_NAME = 'CompositeFiltersInput';
 
-export const staticClasses: Record<MultiFiltersInputStylesNames, string> = {
+export const staticClasses: Record<CompositeFiltersInputStylesNames, string> = {
   root: `mantine-${COMPONENT_NAME}-root`,
   container: `mantine-${COMPONENT_NAME}-container`,
   leftIcon: `mantine-${COMPONENT_NAME}-leftIcon`,
@@ -19,7 +19,7 @@ export const staticClasses: Record<MultiFiltersInputStylesNames, string> = {
 };
 
 // CSS Module classes mapped to selectors
-export const cssModuleClasses: Record<MultiFiltersInputStylesNames, string | undefined> = {
+export const cssModuleClasses: Record<CompositeFiltersInputStylesNames, string | undefined> = {
   root: undefined, // root uses Box, no specific class
   container: classes.container,
   leftIcon: undefined, // uses ActionIcon
@@ -32,7 +32,7 @@ export const cssModuleClasses: Record<MultiFiltersInputStylesNames, string | und
 };
 
 // Export merged classes for Component.classes pattern
-export const multiFiltersInputClasses: Record<MultiFiltersInputStylesNames, string> = {
+export const CompositeFiltersInputClasses: Record<CompositeFiltersInputStylesNames, string> = {
   root: staticClasses.root,
   container: `${staticClasses.container} ${classes.container}`,
   leftIcon: staticClasses.leftIcon,

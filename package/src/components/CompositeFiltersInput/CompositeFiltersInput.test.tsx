@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MantineProvider } from '@mantine/core';
-import { MultiFiltersInput, type ActiveFilter, type FilterDefinition } from '../../index';
+import { CompositeFiltersInput, type ActiveFilter, type FilterDefinition } from '../../index';
 
 const mockFilters: FilterDefinition[] = [
   {
@@ -52,11 +52,11 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <MantineProvider>{children}</MantineProvider>
 );
 
-describe('MultiFiltersInput', () => {
+describe('CompositeFiltersInput', () => {
   it('renders without crashing', () => {
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
+        <CompositeFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
       </Wrapper>
     );
     expect(screen.getByPlaceholderText(/filter by/i)).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe('MultiFiltersInput', () => {
   it('displays placeholder text', () => {
     render(
       <Wrapper>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={mockFilters}
           value={[]}
           onChange={() => {}}
@@ -80,7 +80,7 @@ describe('MultiFiltersInput', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
+        <CompositeFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
       </Wrapper>
     );
 
@@ -107,7 +107,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={activeFilters} onChange={() => {}} />
+        <CompositeFiltersInput filters={mockFilters} value={activeFilters} onChange={() => {}} />
       </Wrapper>
     );
 
@@ -121,7 +121,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={[]} onChange={handleChange} />
+        <CompositeFiltersInput filters={mockFilters} value={[]} onChange={handleChange} />
       </Wrapper>
     );
 
@@ -169,7 +169,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={activeFilters} onChange={handleChange} />
+        <CompositeFiltersInput filters={mockFilters} value={activeFilters} onChange={handleChange} />
       </Wrapper>
     );
 
@@ -212,7 +212,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={mockFilters}
           value={activeFilters}
           onChange={() => {}}
@@ -249,7 +249,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={mockFilters}
           value={activeFilters}
           onChange={() => {}}
@@ -266,7 +266,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
+        <CompositeFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
       </Wrapper>
     );
 
@@ -302,7 +302,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={activeFilters} onChange={handleChange} />
+        <CompositeFiltersInput filters={mockFilters} value={activeFilters} onChange={handleChange} />
       </Wrapper>
     );
 
@@ -317,7 +317,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
+        <CompositeFiltersInput filters={mockFilters} value={[]} onChange={() => {}} />
       </Wrapper>
     );
 
@@ -338,7 +338,7 @@ describe('MultiFiltersInput', () => {
   it('renders with custom className', () => {
     const { container } = render(
       <Wrapper>
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={mockFilters}
           value={[]}
           onChange={() => {}}
@@ -356,7 +356,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={[]} onChange={handleChange} />
+        <CompositeFiltersInput filters={mockFilters} value={[]} onChange={handleChange} />
       </Wrapper>
     );
 
@@ -389,7 +389,7 @@ describe('MultiFiltersInput', () => {
 
     render(
       <Wrapper>
-        <MultiFiltersInput filters={mockFilters} value={[]} onChange={handleChange} />
+        <CompositeFiltersInput filters={mockFilters} value={[]} onChange={handleChange} />
       </Wrapper>
     );
 

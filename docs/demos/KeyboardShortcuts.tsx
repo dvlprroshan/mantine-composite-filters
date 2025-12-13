@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MultiFiltersInput } from 'mantine-composite-filters';
+import { CompositeFiltersInput } from 'mantine-composite-filters';
 import { Alert, Text, Code, Stack } from '@mantine/core';
 import type { ActiveFilter, FilterDefinition } from 'mantine-composite-filters';
 
@@ -39,7 +39,7 @@ export function KeyboardShortcuts() {
   return (
     <div style={{ padding: 40, maxWidth: 800 }}>
       <Stack gap="md">
-        <MultiFiltersInput
+        <CompositeFiltersInput
           filters={sampleFilters}
           value={filters}
           onChange={setFilters}
