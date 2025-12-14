@@ -11,7 +11,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { CodeHighlightAdapterProvider, createShikiAdapter } from '@mantine/code-highlight';
 import { MantineProvider } from '@mantine/core';
-import favicon from '../assets/favicon.png';
+import favicon from '../assets/favicon.svg';
 import { theme } from '../theme';
 
 async function loadShiki() {
