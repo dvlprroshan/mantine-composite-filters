@@ -17,6 +17,7 @@ export default {
       entryFileNames: '[name].mjs',
       dir: path.join(outputDir, 'esm'),
       preserveModules: true,
+      preserveModulesRoot: path.join(process.cwd(), 'package/src'),
       sourcemap: true,
     },
     {
@@ -24,6 +25,7 @@ export default {
       entryFileNames: '[name].cjs',
       dir: path.join(outputDir, 'cjs'),
       preserveModules: true,
+      preserveModulesRoot: path.join(process.cwd(), 'package/src'),
       sourcemap: true,
     },
   ],
