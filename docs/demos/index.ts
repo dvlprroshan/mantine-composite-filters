@@ -11,6 +11,7 @@ import { CustomPills } from './CustomPills';
 import { KeyboardShortcuts } from './KeyboardShortcuts';
 import { SimpleDataTableDemo } from './SimpleDataTableDemo';
 import { StylesApiDemo } from './StylesApiDemo';
+import { UseCompositeFiltersDemo } from './UseCompositeFiltersDemo';
 import { CompositeFiltersInputStylesApi } from '../styles-api/CompositeFiltersInput.styles-api';
 
 const usageCode = `
@@ -615,4 +616,65 @@ export const stylesApi: MantineDemo = {
   code: stylesApiCode,
   centered: true,
   maxWidth: 500,
+};
+
+const useCompositeFiltersCode = `
+import { 
+  CompositeFiltersInput, 
+  useCompositeFilters,
+  type FilterDefinition 
+} from 'mantine-composite-filters';
+
+const filterDefinitions: FilterDefinition[] = [
+  { key: 'name', label: 'Name', type: 'text' },
+  { key: 'status', label: 'Status', type: 'select', options: [...] },
+];
+
+function Demo() {
+  const {
+    activeFilters,
+    setActiveFilters,
+    addFilterByKey,
+    removeFilter,
+    clearFilters,
+    filtersCount,
+    hasAnyFilter,
+    toQueryString,
+    toApiFormat,
+    isDirty,
+    presets,
+    savePreset,
+    history,
+  } = useCompositeFilters({
+    filterDefinitions,
+    enableHistory: true,
+    enablePresets: true,
+  });
+
+  return (
+    <>
+      <CompositeFiltersInput
+        filters={filterDefinitions}
+        value={activeFilters}
+        onChange={setActiveFilters}
+        disablePresets
+        disableHistory
+      />
+      
+      <Button onClick={() => addFilterByKey('status', '=', 'active')}>
+        Add Active Status
+      </Button>
+      <Button onClick={clearFilters}>Clear All</Button>
+      
+      <Text>Query: {toQueryString()}</Text>
+      <Text>Filters: {filtersCount}</Text>
+    </>
+  );
+}
+`;
+
+export const useCompositeFiltersDemo: MantineDemo = {
+  type: 'code',
+  component: UseCompositeFiltersDemo,
+  code: useCompositeFiltersCode,
 };

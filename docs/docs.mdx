@@ -222,7 +222,254 @@ const apiPresetsAdapter: StorageAdapter<SavedFilterPreset[]> = {
 />
 ```
 
-### Using with Hooks Directly
+## useCompositeFilters Hook
+
+The `useCompositeFilters` hook provides a complete state management solution for filters, presets, and history - all in one hook with 70+ helper functions.
+
+<Demo data={demos.useCompositeFiltersDemo} />
+
+### Basic Usage
+
+```tsx
+import { useCompositeFilters, CompositeFiltersInput } from 'mantine-composite-filters';
+
+const filterDefinitions = [
+  { key: 'status', label: 'Status', type: 'select', options: [...] },
+  { key: 'name', label: 'Name', type: 'text' },
+];
+
+function MyComponent() {
+  const {
+    activeFilters,
+    setActiveFilters,
+    addFilterByKey,
+    removeFilter,
+    clearFilters,
+    filtersCount,
+    presets,
+    savePreset,
+    loadPreset,
+    history,
+  } = useCompositeFilters({
+    filterDefinitions,
+    initialFilters: [],
+    onFiltersChange: (filters) => console.log('Filters changed:', filters),
+  });
+
+  return (
+    <CompositeFiltersInput
+      filters={filterDefinitions}
+      value={activeFilters}
+      onChange={setActiveFilters}
+    />
+  );
+}
+```
+
+### Hook Options
+
+```tsx
+interface UseCompositeFiltersOptions {
+  filterDefinitions: FilterDefinition[];
+  initialFilters?: ActiveFilter[];
+  onFiltersChange?: (filters: ActiveFilter[]) => void;
+  storageKey?: string;
+  storageAdapter?: StorageAdapter<ActiveFilter[]>;
+  presetsStorageKey?: string;
+  presetsStorageAdapter?: StorageAdapter<SavedFilterPreset[]>;
+  historyStorageKey?: string;
+  historyStorageAdapter?: StorageAdapter<FilterHistory[]>;
+  maxHistory?: number;
+  enableHistory?: boolean;
+  enablePresets?: boolean;
+}
+```
+
+### Available Functions
+
+**Filter CRUD Operations:**
+| Function | Description |
+|----------|-------------|
+| `addFilter(filter)` | Add a filter and return its ID |
+| `addFilterByKey(key, operator, value, displayValue?)` | Add filter using definition key |
+| `removeFilter(id)` | Remove filter by ID |
+| `removeFilterByKey(key)` | Remove all filters with key |
+| `removeFiltersByKeys(keys)` | Remove filters matching any key |
+| `updateFilter(id, updates)` | Update filter properties |
+| `updateFilterValue(id, value, displayValue?)` | Update just the value |
+| `updateFilterOperator(id, operator)` | Update just the operator |
+| `replaceFilter(id, newFilter)` | Replace entire filter |
+| `clearFilters()` | Remove all filters |
+| `resetFilters()` | Reset to initial filters |
+
+**Filter Getters:**
+| Function | Description |
+|----------|-------------|
+| `getFilterById(id)` | Get filter by ID |
+| `getFilterByKey(key)` | Get first filter with key |
+| `getFiltersByKey(key)` | Get all filters with key |
+| `getFiltersByType(type)` | Get filters by type |
+| `getFiltersByOperator(operator)` | Get filters by operator |
+| `getFirstFilter()` | Get first filter |
+| `getLastFilter()` | Get last filter |
+
+**Filter Checks:**
+| Function/Property | Description |
+|----------|-------------|
+| `hasFilter(key)` | Check if filter exists |
+| `hasFilterById(id)` | Check by ID |
+| `hasFilterWithValue(key, value)` | Check key + value combo |
+| `hasAnyFilter()` | Any filters active? |
+| `hasMultipleFilters()` | More than one filter? |
+| `filtersCount` | Number of active filters |
+
+**Reordering:**
+| Function | Description |
+|----------|-------------|
+| `moveFilterUp(id)` | Move filter up |
+| `moveFilterDown(id)` | Move filter down |
+| `moveFilterToStart(id)` | Move to first position |
+| `moveFilterToEnd(id)` | Move to last position |
+| `swapFilters(id1, id2)` | Swap two filters |
+| `reorderFilters(ids)` | Reorder by ID array |
+
+**Utilities:**
+| Function | Description |
+|----------|-------------|
+| `duplicateFilter(id)` | Clone a filter |
+| `toggleFilter(key, operator, value)` | Add or remove filter |
+| `upsertFilter(key, operator, value)` | Update or create filter |
+
+**Serialization:**
+| Function | Description |
+|----------|-------------|
+| `toQueryParams()` | Convert to URL params object |
+| `toQueryString()` | Convert to URL query string |
+| `toApiFormat()` | Convert to API-friendly format |
+| `toJSON()` | Export as JSON string |
+| `fromJSON(json)` | Import from JSON |
+| `serialize()` | Base64 encode filters |
+| `deserialize(data)` | Base64 decode filters |
+
+**Presets:**
+| Function/Property | Description |
+|----------|-------------|
+| `presets` | All saved presets |
+| `sortedPresets` | Presets sorted by favorite |
+| `favoritePresets` | Only favorite presets |
+| `presetsCount` | Number of presets |
+| `hasPresets` | Any presets saved? |
+| `savePreset(name)` | Save current filters |
+| `loadPreset(preset)` | Load a preset |
+| `loadPresetById(id)` | Load preset by ID |
+| `deletePreset(id)` | Delete a preset |
+| `updatePreset(id, updates)` | Update preset |
+| `renamePreset(id, newName)` | Rename preset |
+| `togglePresetFavorite(id)` | Toggle favorite |
+| `duplicatePreset(id, newName?)` | Clone preset |
+| `overwritePreset(id)` | Overwrite with current |
+| `getPresetById(id)` | Get preset by ID |
+| `clearPresets()` | Delete all presets |
+
+**History:**
+| Function/Property | Description |
+|----------|-------------|
+| `history` | Full history array |
+| `recentHistory` | Last 5 entries |
+| `historyCount` | Number of entries |
+| `hasHistory` | Any history? |
+| `loadFromHistory(item)` | Load history item |
+| `loadFromHistoryByIndex(index)` | Load by index |
+| `clearHistory()` | Clear all history |
+| `removeHistoryItem(timestamp)` | Remove entry |
+| `undoToLastHistory()` | Undo to previous |
+
+**Definitions:**
+| Function | Description |
+|----------|-------------|
+| `getDefinition(key)` | Get filter definition |
+| `getAvailableDefinitions()` | Unused definitions |
+| `isDefinitionUsed(key)` | Is definition in use? |
+| `canAddMoreFilters(max?)` | Can add more filters? |
+
+**State Tracking:**
+| Function/Property | Description |
+|----------|-------------|
+| `isDirty` | Filters changed from initial? |
+| `markAsClean()` | Mark current state as clean |
+| `hasUnsavedChanges()` | Same as isDirty |
+
+### Examples
+
+**Programmatic Filter Management:**
+
+```tsx
+const { addFilterByKey, removeFilterByKey, clearFilters } = useCompositeFilters({
+  filterDefinitions,
+});
+
+// Add a filter programmatically
+addFilterByKey('status', '=', 'active', 'Active');
+
+// Remove all status filters
+removeFilterByKey('status');
+
+// Clear everything
+clearFilters();
+```
+
+**URL Sync:**
+
+```tsx
+const { toQueryString, fromJSON, toJSON } = useCompositeFilters({
+  filterDefinitions,
+});
+
+// Sync to URL
+useEffect(() => {
+  const params = toQueryString();
+  window.history.replaceState({}, '', `?${params}`);
+}, [toQueryString]);
+
+// Share filters
+const shareFilters = () => {
+  const encoded = btoa(toJSON());
+  navigator.clipboard.writeText(`${window.location.origin}?filters=${encoded}`);
+};
+```
+
+**API Integration:**
+
+```tsx
+const { toApiFormat, activeFilters } = useCompositeFilters({
+  filterDefinitions,
+  onFiltersChange: (filters) => {
+    // Debounce and fetch
+    fetchData(toApiFormat());
+  },
+});
+```
+
+**Dirty State Tracking:**
+
+```tsx
+const { isDirty, markAsClean, resetFilters } = useCompositeFilters({
+  filterDefinitions,
+  initialFilters: savedFilters,
+});
+
+const handleSave = () => {
+  saveToServer(activeFilters);
+  markAsClean();
+};
+
+// Show unsaved changes warning
+{isDirty && <Text c="yellow">You have unsaved changes</Text>}
+```
+
+### Using Individual Hooks
+
+For more granular control, you can also use the individual hooks:
 
 ```tsx
 import { useFilterPresets, useFilterHistory } from 'mantine-composite-filters';
@@ -414,10 +661,13 @@ import type {
   ActiveFilter, 
   FilterType,
   FilterOperator,
+  FilterValue,
   StorageAdapter,
   SavedFilterPreset,
   FilterHistory,
   SavePresetModalProps,
+  UseCompositeFiltersOptions,
+  UseCompositeFiltersReturn,
 } from 'mantine-composite-filters';
 ```
 

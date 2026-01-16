@@ -26,6 +26,8 @@ export type { CompositeFiltersInputStylesNames as CompositeFiltersInputStylesNam
 export { useFilters } from "./hooks/useFilters";
 export { useFilterPresets } from "./hooks/useFilterPresets";
 export { useFilterHistory } from "./hooks/useFilterHistory";
+export { useCompositeFilters } from "./hooks/useCompositeFilters";
+export type { UseCompositeFiltersOptions, UseCompositeFiltersReturn } from "./hooks/useCompositeFilters";
 
 // Storage
 export { createLocalStorageAdapter, useStorageState } from "./storage";
