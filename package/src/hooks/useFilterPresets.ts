@@ -1,8 +1,7 @@
-import { useCallback } from "react";
+import { createElement, useCallback } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
-import React from "react";
 import type { 
   ActiveFilter, 
   SavedFilterPreset, 
@@ -32,13 +31,22 @@ export const useFilterPresets = (
         return null;
       }
 
-      const presetName = name || prompt("Enter a name for this filter preset:");
-      if (!presetName) return null;
+      if (!name) {
+        notifications.show({
+          title: "Preset name required",
+          message: "Please provide a name for this preset.",
+          color: "red",
+        });
+        return null;
+      }
+
+      const presetName = name;
+      const serializableFilters = filters.map(({ icon, ...rest }) => rest);
 
       const newPreset: SavedFilterPreset = {
         id: generateId(),
         name: presetName,
-        filters,
+        filters: serializableFilters as ActiveFilter[],
         createdAt: Date.now(),
       };
 
@@ -48,7 +56,7 @@ export const useFilterPresets = (
         title: "Preset saved",
         message: `"${presetName}" has been saved`,
         color: "green",
-        icon: React.createElement(IconCheck, { size: 16 }),
+        icon: createElement(IconCheck, { size: 16 }),
       });
 
       return newPreset;

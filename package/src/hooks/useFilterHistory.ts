@@ -24,17 +24,18 @@ export const useFilterHistory = (
 
   // Add to history when filters change
   useEffect(() => {
-    if (!enabled || activeFilters.length === 0) return;
+    if (!enabled || activeFilters.length === 0) {return;}
 
+    const serializableFilters = activeFilters.map(({ icon, ...rest }) => rest);
+    
     const newHistory: FilterHistory = {
-      filters: activeFilters,
+      filters: serializableFilters as ActiveFilter[],
       timestamp: Date.now(),
     };
 
     setFilterHistory((prev) => {
-      // Check if same filters already exist
       const filtered = prev.filter(
-        (h) => JSON.stringify(h.filters) !== JSON.stringify(activeFilters)
+        (h) => JSON.stringify(h.filters) !== JSON.stringify(serializableFilters)
       );
       return [newHistory, ...filtered].slice(0, maxHistory);
     });
