@@ -1,13 +1,17 @@
 import {
   ActionIcon,
   Box,
+  Button,
   Group,
   Menu,
+  Modal,
   ScrollArea,
   Stack,
   Text,
+  TextInput,
   Tooltip,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import {
   IconAdjustmentsHorizontal,
@@ -22,32 +26,35 @@ import {
   IconStarFilled,
   IconTrash,
 } from "@tabler/icons-react";
-import React from "react";
+import React, { useState } from "react";
 
 import type { ActiveFilter, FilterAction, FilterHistory, SavedFilterPreset } from "../../types/filter.types";
 import { getOperatorLabel } from "../../utils";
 
+export interface SavePresetModalProps {
+  opened: boolean;
+  onClose: () => void;
+  onSave: (name: string) => void;
+  activeFilters: ActiveFilter[];
+}
+
 export interface FilterActionsMenuProps {
   activeFilters: ActiveFilter[];
   onChange: (filters: ActiveFilter[]) => void;
-  // Display preferences
   isCompactMode: boolean;
   setIsCompactMode: (value: boolean | ((prev: boolean) => boolean)) => void;
   showFilterCount: boolean;
   setShowFilterCount: (value: boolean | ((prev: boolean) => boolean)) => void;
-  // Presets
   savedPresets?: SavedFilterPreset[];
-  onSavePreset?: () => void;
+  onSavePreset?: (name: string) => void;
   onLoadPreset?: (preset: SavedFilterPreset) => void;
   onTogglePresetFavorite?: (presetId: string) => void;
   onDeletePreset?: (presetId: string) => void;
-  // History
   filterHistory?: FilterHistory[];
-  // Custom actions
   customActions?: FilterAction[];
-  // Feature flags
   disablePresets?: boolean;
   disableHistory?: boolean;
+  renderSavePresetModal?: (props: SavePresetModalProps) => React.ReactNode;
 }
 
 export const FilterActionsMenu: React.FC<FilterActionsMenuProps> = ({
@@ -66,7 +73,25 @@ export const FilterActionsMenu: React.FC<FilterActionsMenuProps> = ({
   customActions = [],
   disablePresets = false,
   disableHistory = false,
+  renderSavePresetModal,
 }) => {
+  const [saveModalOpened, { open: openSaveModal, close: closeSaveModal }] = useDisclosure(false);
+  const [presetName, setPresetName] = useState("");
+
+  const handleSavePreset = () => {
+    if (!presetName.trim()) {
+      notifications.show({
+        title: "Name required",
+        message: "Please enter a name for this preset",
+        color: "red",
+      });
+      return;
+    }
+    onSavePreset?.(presetName.trim());
+    setPresetName("");
+    closeSaveModal();
+  };
+
   const copyFiltersToClipboard = () => {
     const filterText = activeFilters
       .map((f) => `${f.label} ${getOperatorLabel(f.operator)} ${f.displayValue}`)
@@ -116,7 +141,7 @@ export const FilterActionsMenu: React.FC<FilterActionsMenuProps> = ({
           </ActionIcon>
         </Tooltip>
       </Menu.Target>
-      <Menu.Dropdown>
+      <Menu.Dropdown onClick={(e) => e.stopPropagation()}>
         <Menu.Label>Display Options</Menu.Label>
         <Menu.Item
           leftSection={isCompactMode ? <IconCheck size={16} /> : <Box w={16} />}
@@ -137,7 +162,10 @@ export const FilterActionsMenu: React.FC<FilterActionsMenuProps> = ({
         {!disablePresets && (
           <Menu.Item
             leftSection={<IconBookmark size={16} />}
-            onClick={onSavePreset}
+            onClick={(e) => {
+              e.stopPropagation();
+              openSaveModal();
+            }}
             disabled={activeFilters.length === 0}
           >
             Save as preset
@@ -290,6 +318,53 @@ export const FilterActionsMenu: React.FC<FilterActionsMenuProps> = ({
           </Menu>
         )}
       </Menu.Dropdown>
+
+      {renderSavePresetModal ? (
+        renderSavePresetModal({
+          opened: saveModalOpened,
+          onClose: closeSaveModal,
+          onSave: (name: string) => {
+            onSavePreset?.(name);
+            closeSaveModal();
+          },
+          activeFilters,
+        })
+      ) : (
+        <Modal
+          opened={saveModalOpened}
+          onClose={closeSaveModal}
+          title="Save Preset"
+          size="sm"
+          centered
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Stack gap="md">
+            <TextInput
+              label="Preset Name"
+              placeholder="Enter a name for this preset"
+              value={presetName}
+              onChange={(e) => setPresetName(e.currentTarget.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSavePreset();
+                }
+              }}
+              data-autofocus
+            />
+            <Text size="sm" c="dimmed">
+              Saving {activeFilters.length} filter{activeFilters.length !== 1 ? "s" : ""}
+            </Text>
+            <Group justify="flex-end" gap="sm">
+              <Button variant="default" onClick={closeSaveModal}>
+                Cancel
+              </Button>
+              <Button onClick={handleSavePreset} disabled={!presetName.trim()}>
+                Save
+              </Button>
+            </Group>
+          </Stack>
+        </Modal>
+      )}
     </Menu>
   );
 };

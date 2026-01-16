@@ -5,6 +5,7 @@ import { AllFilterTypes } from './AllFilterTypes';
 import { WithMaxFilters } from './WithMaxFilters';
 import { OverflowModes } from './OverflowModes';
 import { WithPresets } from './WithPresets';
+import { CustomStorageAdapter } from './CustomStorageAdapter';
 import { CustomStyling } from './CustomStyling';
 import { CustomPills } from './CustomPills';
 import { KeyboardShortcuts } from './KeyboardShortcuts';
@@ -306,6 +307,82 @@ export const withPresets: MantineDemo = {
   type: 'code',
   component: WithPresets,
   code: withPresetsCode,
+};
+
+const customStorageAdapterCode = `
+import { useState, useMemo } from 'react';
+import { 
+  CompositeFiltersInput,
+  createLocalStorageAdapter,
+  type ActiveFilter,
+  type FilterDefinition,
+  type StorageAdapter,
+  type SavedFilterPreset,
+  type FilterHistory,
+} from 'mantine-composite-filters';
+
+const filters: FilterDefinition[] = [
+  { key: 'name', label: 'Name', type: 'text' },
+  { key: 'status', label: 'Status', type: 'select', options: [
+    { value: 'active', label: 'Active' },
+    { value: 'pending', label: 'Pending' },
+  ]},
+];
+
+// Example: In-memory adapter (no persistence)
+const createInMemoryAdapter = <T,>(defaultValue: T): StorageAdapter<T> => {
+  let data: T = defaultValue;
+  return {
+    get: () => data,
+    set: (value: T) => { data = value; },
+    remove: () => { data = defaultValue; },
+  };
+};
+
+// Example: API-based adapter (async)
+const createApiAdapter = <T,>(endpoint: string): StorageAdapter<T> => ({
+  get: async () => {
+    const response = await fetch(endpoint);
+    return response.json();
+  },
+  set: async (value: T) => {
+    await fetch(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(value),
+    });
+  },
+  remove: async () => {
+    await fetch(endpoint, { method: 'DELETE' });
+  },
+});
+
+function Demo() {
+  const [activeFilters, setActiveFilters] = useState<ActiveFilter[]>([]);
+
+  const presetsAdapter = useMemo(() => 
+    createInMemoryAdapter<SavedFilterPreset[]>([]), []
+  );
+  const historyAdapter = useMemo(() => 
+    createInMemoryAdapter<FilterHistory[]>([]), []
+  );
+
+  return (
+    <CompositeFiltersInput
+      filters={filters}
+      value={activeFilters}
+      onChange={setActiveFilters}
+      presetsStorageAdapter={presetsAdapter}
+      historyStorageAdapter={historyAdapter}
+      placeholder="Using custom storage..."
+    />
+  );
+}
+`;
+
+export const customStorageAdapter: MantineDemo = {
+  type: 'code',
+  component: CustomStorageAdapter,
+  code: customStorageAdapterCode,
 };
 
 const customStylingCode = `

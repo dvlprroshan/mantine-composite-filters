@@ -1,5 +1,4 @@
 import { createElement, useCallback } from "react";
-import { useLocalStorage } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import type { 
@@ -9,14 +8,20 @@ import type {
   UseFilterPresetsReturn 
 } from "../types/filter.types";
 import { generateId } from "../utils";
+import { useStorageState } from "../storage";
 
 export const useFilterPresets = (
   options: UseFilterPresetsOptions = {}
 ): UseFilterPresetsReturn => {
-  const { storageKey = "filters-saved-presets", onLoad } = options;
+  const { 
+    storageKey = "filters-saved-presets", 
+    onLoad,
+    storageAdapter,
+  } = options;
 
-  const [savedPresets, setSavedPresets] = useLocalStorage<SavedFilterPreset[]>({
-    key: storageKey,
+  const [savedPresets, setSavedPresets] = useStorageState<SavedFilterPreset[]>({
+    adapter: storageAdapter,
+    storageKey,
     defaultValue: [],
   });
 
@@ -123,4 +128,3 @@ export const useFilterPresets = (
     hasPresets: savedPresets.length > 0,
   };
 };
-

@@ -5,6 +5,38 @@ import * as demos from './demos';
 
 <InstallScript packages="mantine-composite-filters" />
 
+### Peer Dependencies
+
+This package requires the following peer dependencies:
+
+<InstallScript packages="@mantine/core @mantine/hooks @mantine/dates @mantine/notifications @tabler/icons-react" />
+
+Make sure you have Mantine properly set up in your project. See [Mantine Getting Started](https://mantine.dev/getting-started/) for setup instructions.
+
+**Required setup:**
+- `MantineProvider` wrapping your app
+- `Notifications` component for toast notifications
+- Import `mantine-composite-filters/styles.css` in your app
+
+```tsx
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
+import 'mantine-composite-filters/styles.css';
+
+import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
+
+function App() {
+  return (
+    <MantineProvider>
+      <Notifications />
+      {/* Your app */}
+    </MantineProvider>
+  );
+}
+```
+
 ## Overview
 
 Build powerful filter interfaces in minutes. `CompositeFiltersInput` brings LinkedIn-style composite filtering to your Mantine apps - complete with type-safe definitions, smart operators, presets, and full keyboard support.
@@ -14,7 +46,7 @@ Build powerful filter interfaces in minutes. `CompositeFiltersInput` brings Link
 - Smart operator selection based on data type
 - Save filter combinations as reusable presets
 - Full keyboard navigation for power users
-- Zero configuration localStorage persistence
+- Flexible storage with localStorage default or custom adapters
 
 ## Quick Start
 
@@ -73,10 +105,137 @@ Let users save and recall filter combinations:
 
 <Demo data={demos.withPresets} />
 
-Built-in features (all persisted to localStorage):
-- **Save presets** - Name and store filter combinations
-- **Favorites** - Quick access to frequently used presets
-- **History** - Auto-tracked recent filter combinations
+Built-in features (all persisted to localStorage by default):
+- **Save presets** - Click "Save as preset" to open a modal where you can name and store filter combinations
+- **Favorites** - Star presets for quick access
+- **History** - Auto-tracked recent filter combinations (last 10)
+
+### Custom Save Preset Modal
+
+You can provide your own modal for saving presets using the `renderSavePresetModal` prop:
+
+```tsx
+import { Modal, TextInput, Button, Stack } from '@mantine/core';
+import { useState } from 'react';
+import type { SavePresetModalProps } from 'mantine-composite-filters';
+
+function MyCustomSaveModal({ opened, onClose, onSave, activeFilters }: SavePresetModalProps) {
+  const [name, setName] = useState('');
+
+  const handleSave = () => {
+    if (name.trim()) {
+      onSave(name.trim());
+      setName('');
+    }
+  };
+
+  return (
+    <Modal opened={opened} onClose={onClose} title="Save Your Filters">
+      <Stack>
+        <TextInput
+          label="Preset Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="My awesome filter preset"
+        />
+        <p>You're saving {activeFilters.length} filters</p>
+        <Button onClick={handleSave}>Save Preset</Button>
+      </Stack>
+    </Modal>
+  );
+}
+
+// Usage
+<CompositeFiltersInput
+  filters={filters}
+  value={activeFilters}
+  onChange={setActiveFilters}
+  renderSavePresetModal={(props) => <MyCustomSaveModal {...props} />}
+/>
+```
+
+The `SavePresetModalProps` includes:
+- `opened` - Whether the modal should be visible
+- `onClose` - Function to close the modal
+- `onSave` - Function to call with the preset name when saving
+- `activeFilters` - Current active filters being saved
+
+## Custom Storage Adapters
+
+Need to store presets on your server or use a different storage mechanism? Create custom storage adapters:
+
+<Demo data={demos.customStorageAdapter} />
+
+### StorageAdapter Interface
+
+```tsx
+interface StorageAdapter<T> {
+  get: () => T | Promise<T>;
+  set: (value: T) => void | Promise<void>;
+  remove: () => void | Promise<void>;
+}
+```
+
+### Built-in Adapters
+
+The package exports `createLocalStorageAdapter` for creating localStorage adapters with proper Date serialization:
+
+```tsx
+import { createLocalStorageAdapter } from 'mantine-composite-filters';
+
+const presetsAdapter = createLocalStorageAdapter<SavedFilterPreset[]>(
+  'my-presets-key',
+  [] // default value
+);
+```
+
+### API Storage Example
+
+Store presets on your server:
+
+```tsx
+import type { StorageAdapter, SavedFilterPreset } from 'mantine-composite-filters';
+
+const apiPresetsAdapter: StorageAdapter<SavedFilterPreset[]> = {
+  get: async () => {
+    const response = await fetch('/api/filter-presets');
+    return response.json();
+  },
+  set: async (presets) => {
+    await fetch('/api/filter-presets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(presets),
+    });
+  },
+  remove: async () => {
+    await fetch('/api/filter-presets', { method: 'DELETE' });
+  },
+};
+
+<CompositeFiltersInput
+  filters={filters}
+  value={activeFilters}
+  onChange={setActiveFilters}
+  presetsStorageAdapter={apiPresetsAdapter}
+  historyStorageAdapter={apiHistoryAdapter}
+/>
+```
+
+### Using with Hooks Directly
+
+```tsx
+import { useFilterPresets, useFilterHistory } from 'mantine-composite-filters';
+
+const { presets, savePreset } = useFilterPresets({
+  storageAdapter: myCustomAdapter,
+  onLoad: setActiveFilters,
+});
+
+const { history } = useFilterHistory(activeFilters, {
+  storageAdapter: myHistoryAdapter,
+});
+```
 
 ## Styles API
 
@@ -254,7 +413,11 @@ import type {
   FilterDefinition, 
   ActiveFilter, 
   FilterType,
-  FilterOperator 
+  FilterOperator,
+  StorageAdapter,
+  SavedFilterPreset,
+  FilterHistory,
+  SavePresetModalProps,
 } from 'mantine-composite-filters';
 ```
 

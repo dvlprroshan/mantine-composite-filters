@@ -27,6 +27,16 @@ export { useFilters } from "./hooks/useFilters";
 export { useFilterPresets } from "./hooks/useFilterPresets";
 export { useFilterHistory } from "./hooks/useFilterHistory";
 
+// Storage
+export { createLocalStorageAdapter, useStorageState } from "./storage";
+export type {
+  StorageAdapter,
+  FilterHistoryStorageAdapter,
+  FilterPresetsStorageAdapter,
+  StorageAdapterFactory,
+  UseStorageStateOptions,
+} from "./storage";
+
 // Utils
 export * from "./utils";
 
@@ -47,6 +57,7 @@ export type {
   CompositeFiltersInputStyles,
   CompositeFiltersInputClassNames,
   FilterPillProps,
+  SavePresetModalProps,
   
   // Dropdown types
   FilterDropdownConfig,

@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 
 import { ActionIcon, Badge, Box, Combobox, Tooltip, useCombobox, useMantineTheme } from "@mantine/core";
-import { useHotkeys, useLocalStorage } from "@mantine/hooks";
+import { useHotkeys } from "@mantine/hooks";
+import { useStorageState } from "../../storage";
 import { IconSearch, IconX } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "./CompositeFiltersInput.module.css";
@@ -71,6 +72,8 @@ const CompositeFiltersInputBase: React.FC<CompositeFiltersInputExtendedProps> = 
   disablePresets = false,
   disableHistory = false,
   storageKeyPrefix = "filters",
+  presetsStorageAdapter,
+  historyStorageAdapter,
   customActions = [],
   overflowMode = "scroll",
   styles,
@@ -78,6 +81,7 @@ const CompositeFiltersInputBase: React.FC<CompositeFiltersInputExtendedProps> = 
   operatorPlaceholder = "Select operator...",
   valuePlaceholder = "Enter value...",
   searchPlaceholder = "Search options...",
+  renderSavePresetModal,
   ...boxProps
 }) => {
   const theme = useMantineTheme();
@@ -110,17 +114,15 @@ const CompositeFiltersInputBase: React.FC<CompositeFiltersInputExtendedProps> = 
   const inputRef = useRef<HTMLInputElement>(null);
   const pillsContainerRef = useRef<HTMLDivElement>(null);
 
-  // Preferences from local storage
-  const [isCompactMode, setIsCompactMode] = useLocalStorage({
-    key: `${storageKeyPrefix}-compact-mode`,
+  const [isCompactMode, setIsCompactMode] = useStorageState<boolean>({
+    storageKey: `${storageKeyPrefix}-compact-mode`,
     defaultValue: false,
   });
-  const [showFilterCount, setShowFilterCount] = useLocalStorage({
-    key: `${storageKeyPrefix}-show-count`,
+  const [showFilterCount, setShowFilterCount] = useStorageState<boolean>({
+    storageKey: `${storageKeyPrefix}-show-count`,
     defaultValue: true,
   });
 
-  // Presets hook
   const {
     presets: savedPresets,
     savePreset,
@@ -130,12 +132,13 @@ const CompositeFiltersInputBase: React.FC<CompositeFiltersInputExtendedProps> = 
   } = useFilterPresets({
     storageKey: `${storageKeyPrefix}-saved-presets`,
     onLoad: onChange,
+    storageAdapter: presetsStorageAdapter,
   });
 
-  // History hook
   const { history: filterHistory } = useFilterHistory(activeFilters, {
     storageKey: `${storageKeyPrefix}-history`,
     enabled: !disableHistory,
+    storageAdapter: historyStorageAdapter,
   });
 
   // Combobox
@@ -723,8 +726,8 @@ const CompositeFiltersInputBase: React.FC<CompositeFiltersInputExtendedProps> = 
     [inputStep, selectedField, multiSelectValues, handleValueSubmit, inputValue, activeFilters, resetInput, combobox, handleRemoveFilter]
   );
 
-  const handleSavePreset = useCallback(() => {
-    savePreset(activeFilters);
+  const handleSavePreset = useCallback((name: string) => {
+    savePreset(activeFilters, name);
   }, [activeFilters, savePreset]);
 
   // Determine what to show
@@ -1015,6 +1018,7 @@ const CompositeFiltersInputBase: React.FC<CompositeFiltersInputExtendedProps> = 
                 customActions={customActions}
                 disablePresets={disablePresets}
                 disableHistory={disableHistory}
+                renderSavePresetModal={renderSavePresetModal}
               />
 
             

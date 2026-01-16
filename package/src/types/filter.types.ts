@@ -1,5 +1,6 @@
 import React from "react";
 import type { BoxProps } from "@mantine/core";
+import type { StorageAdapter } from "../storage";
 
 export type FilterType = 
   | 'text' 
@@ -84,6 +85,13 @@ export interface CompositeFiltersInputClassNames {
   clearButton?: string;
 }
 
+export interface SavePresetModalProps {
+  opened: boolean;
+  onClose: () => void;
+  onSave: (name: string) => void;
+  activeFilters: ActiveFilter[];
+}
+
 export interface CompositeFiltersInputProps extends Omit<BoxProps, 'children'> {
   filters: FilterDefinition[];
   value: ActiveFilter[];
@@ -101,6 +109,10 @@ export interface CompositeFiltersInputProps extends Omit<BoxProps, 'children'> {
   disableHistory?: boolean;
   /** Storage key prefix for local storage */
   storageKeyPrefix?: string;
+  /** Custom storage adapter for presets */
+  presetsStorageAdapter?: StorageAdapter<SavedFilterPreset[]>;
+  /** Custom storage adapter for history */
+  historyStorageAdapter?: StorageAdapter<FilterHistory[]>;
   /** Custom actions for the menu */
   customActions?: FilterAction[];
   /** Variants for different UI styles */
@@ -109,6 +121,8 @@ export interface CompositeFiltersInputProps extends Omit<BoxProps, 'children'> {
   styles?: CompositeFiltersInputStyles | ((theme: any) => CompositeFiltersInputStyles);
   /** ClassNames applied to different parts of the component */
   classNames?: CompositeFiltersInputClassNames;
+  /** Custom save preset modal renderer */
+  renderSavePresetModal?: (props: SavePresetModalProps) => React.ReactNode;
 }
 
 // Input step state
@@ -229,12 +243,14 @@ export interface UseFiltersOptions {
 export interface UseFilterPresetsOptions {
   storageKey?: string;
   onLoad?: (filters: ActiveFilter[]) => void;
+  storageAdapter?: StorageAdapter<SavedFilterPreset[]>;
 }
 
 export interface UseFilterHistoryOptions {
   storageKey?: string;
   maxHistory?: number;
   enabled?: boolean;
+  storageAdapter?: StorageAdapter<FilterHistory[]>;
 }
 
 // Hook Return Types

@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from "react";
-import { useLocalStorage } from "@mantine/hooks";
 import type { 
   ActiveFilter, 
   FilterHistory, 
   UseFilterHistoryOptions,
   UseFilterHistoryReturn 
 } from "../types/filter.types";
+import { useStorageState } from "../storage";
 
 export const useFilterHistory = (
   activeFilters: ActiveFilter[],
@@ -14,15 +14,16 @@ export const useFilterHistory = (
   const { 
     storageKey = "filters-history", 
     maxHistory = 10,
-    enabled = true 
+    enabled = true,
+    storageAdapter,
   } = options;
 
-  const [filterHistory, setFilterHistory] = useLocalStorage<FilterHistory[]>({
-    key: storageKey,
+  const [filterHistory, setFilterHistory] = useStorageState<FilterHistory[]>({
+    adapter: storageAdapter,
+    storageKey: enabled ? storageKey : undefined,
     defaultValue: [],
   });
 
-  // Add to history when filters change
   useEffect(() => {
     if (!enabled || activeFilters.length === 0) {return;}
 
@@ -60,4 +61,3 @@ export const useFilterHistory = (
     hasHistory: filterHistory.length > 0,
   };
 };
-
